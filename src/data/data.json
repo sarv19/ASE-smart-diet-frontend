@@ -1,0 +1,86 @@
+{
+  "result": [
+    {
+      "ingredientId": 1,
+      "ingredientName": "Beef Shank",
+      "calories": 200,
+      "quantity": 1,
+      "weight": 100,
+      "substitute": [
+        {
+          "ingredientId": 4,
+          "ingredientName": "Beef",
+          "calories": 200,
+          "quantity": 1,
+          "weight": 100
+        },
+        {
+          "ingredientId": 5,
+          "ingredientName": "Chicken",
+          "calories": 200,
+          "quantity": 1,
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "ingredientId": 2,
+      "ingredientName": "Spinach",
+      "calories": 312,
+      "quantity": 2,
+      "weight": 10,
+      "substitute": []
+    },
+    {
+      "ingredientId": 3,
+      "ingredientName": "Apple",
+      "calories": 233,
+      "quantity": 1,
+      "weight": 100
+    },
+    {
+      "ingredientId": 6,
+      "ingredientName": "Celery",
+      "calories": 56,
+      "quantity": 1,
+      "weight": 100
+    },
+    {
+      "ingredientId": 7,
+      "ingredientName": "Cereal",
+      "calories": 200,
+      "quantity": 1,
+      "weight": 100,
+      "substitute": [
+        {
+          "ingredientId": 9,
+          "ingredientName": "Beef",
+          "calories": 200,
+          "quantity": 1,
+          "weight": 100
+        },
+        {
+          "ingredientId": 10,
+          "ingredientName": "Chicken",
+          "calories": 200,
+          "quantity": 1,
+          "weight": 100
+        }
+      ]
+    },
+    {
+      "ingredientId": 8,
+      "ingredientName": "Duck",
+      "calories": 333,
+      "quantity": 1,
+      "weight": 100
+    },
+    {
+      "ingredientId": 13,
+      "ingredientName": "Foire Gras",
+      "calories": 888,
+      "quantity": 1,
+      "weight": 100
+    }
+  ]
+}
