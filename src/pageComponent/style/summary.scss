@@ -1,0 +1,19 @@
+.summary {
+  
+    .ant-progress-text {
+        display: none;
+    }
+    
+    .progress-bar {
+        width: 50%;
+        margin: auto;
+
+        &-sumup {
+            text-align: right;
+            color: #960018;
+
+            font-size: 10px;
+            font-weight: 700;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+.baselayout-sider {
+  background: red;
+  margin: 0;
+  .ant-menu {
+    height: 100%;
+  }
+
+  .ant-menu-item {
+    height: fit-content;
+    padding: 15px 0;
+    text-align: center;
+    margin: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .ant-menu-title-content {
+      margin: 0 !important;
+    }
+
+    .custom-logo {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
