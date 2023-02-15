@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Table, Tabs, TabsProps } from 'antd';
+import { Tabs, TabsProps } from 'antd';
 import { Header, TableComponent } from '../components';
 
 interface DataType {
@@ -32,7 +32,7 @@ const DailyDiet: React.FC = () => {
       "pageSize": 10
     }
     try {
-      const response = await fetch('http://3.17.69.128:8080/sd/meal/queryAMeal',
+      const response = await fetch('/api/daily-diet',
       {
         method: 'POST',
         headers: {
