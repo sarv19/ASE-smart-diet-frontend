@@ -21,10 +21,6 @@ const SubTable = ({ tableData, isSelectAll, result, setResult, mealId } : SubTab
     setIsOpen(!isOpen);
     const response = await fetch('/api/substitutions', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
       body: JSON.stringify({ingredientId: ingredientId, mealId: mealId}),
     })
     const data = await response.json();

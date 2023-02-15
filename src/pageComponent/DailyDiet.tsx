@@ -35,10 +35,6 @@ const DailyDiet: React.FC = () => {
       const response = await fetch('/api/daily-diet',
       {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
         body: JSON.stringify(requestData),
       });
       const data = await response.json();

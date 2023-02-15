@@ -20,9 +20,9 @@ export default async function handler(
       }
     );
     const data = response.data;
-    res.status(httpStatus.OK).json(data);
+    return res.status(httpStatus.OK).json(data);
   }
-  res
+  return res
     .status(httpStatus.NOT_FOUND)
     .json({ message: "API route not found or method not allowed." });
 }
