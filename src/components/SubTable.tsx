@@ -2,7 +2,6 @@ import { Tooltip } from "antd";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
 import Substitution from "./Substitution";
-import { TableComponentProps } from "./TableComponent";
 
 type SubTableProps = {
   tableData: any,
@@ -20,15 +19,11 @@ const SubTable = ({ tableData, isSelectAll, result, setResult, mealId } : SubTab
 
   async function handleOpen() {
     setIsOpen(!isOpen);
-    const reponse = await fetch('http://3.17.69.128:8080/sd/meal/querySubstitutions', {
+    const response = await fetch('/api/substitutions', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
       body: JSON.stringify({ingredientId: ingredientId, mealId: mealId}),
     })
-    const data = await reponse.json();
+    const data = await response.json();
     setSubtitutions(data.data.data.list);
   }
 
