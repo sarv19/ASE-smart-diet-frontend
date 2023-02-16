@@ -94,7 +94,6 @@ export function AuthRequired({ children }: React.PropsWithChildren) {
   const router = useRouter();
 
   useEffect(() => {
-    // FIXME: Add a default sign in page
     if (authState === "signedOut") {
       router.push(`/signin?back=${encodeURIComponent(router.asPath)}`);
     }
