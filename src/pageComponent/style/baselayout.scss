@@ -25,3 +25,24 @@
     }
   }
 }
+
+.ant-tabs {
+  padding: 0 30px;
+}
+
+.logout-btn {
+  position: absolute;
+  bottom: 0;
+  border: none;
+  background: none;
+  padding: 5px;
+  width: 100%;
+  margin-bottom: 5px;
+  &:hover {
+    cursor: pointer;
+  }
+
+  img {
+    width: 40px;
+  }
+}

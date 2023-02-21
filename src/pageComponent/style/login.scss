@@ -1,0 +1,103 @@
+.login-page {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    left: 0;
+    background-color: white;
+    display: flex;
+
+    .bg-right-top {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 150px;
+
+        // transform: rotate(-90deg);
+    }
+
+    &-left {
+        width: 50%;
+        background-color: #960018;
+    }
+
+    &-content {
+        position: absolute;
+        top: 10%;
+        left: 10%;
+        height: 80%;
+        width: 80%;
+        border-radius: 20px;
+        display: flex;
+        overflow: hidden;
+
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+        &-left {
+            width: 50%;
+            background-color: #960018;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &-body {
+                font-size: 15px;
+                color: white;
+                max-width: 50%;
+                padding-bottom: 10%;
+
+                &-title {
+                    font-size: 40px;
+                    font-weight: 700;
+
+                    margin-bottom: 15px;
+                }
+            }
+
+            img {
+                position: absolute;
+                bottom: 0;
+
+                width: 30%;
+            }
+        }
+
+        &-right {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            &-welcome {
+                font-size: 30px;
+                font-weight: 600;
+                color: #960018;
+                margin-bottom: 25px;
+            }
+
+            &-login {
+                display: flex;
+                align-items: center;
+                background: none;
+                border: none;
+                box-shadow: rgb(50 50 93 / 25%) 0px 6px 12px -2px, rgb(0 0 0 / 30%) 0px 3px 7px -3px;
+                padding: 10px 20px;
+                border-radius: 10px;
+
+                &:hover {
+                    cursor: pointer;
+                }
+
+                img {
+                    width: 30px;
+                    height: 30px;
+                    object-fit: contain;
+                }
+
+                &-content {
+                    padding-left: 10px;
+                }
+            }
+        }
+    }
+}

@@ -1,7 +1,14 @@
 @import '/src/components/style/';
 @import '/src/pageComponent/style/';
+@import './font.scss';
 
 body {
   margin: 0;
   padding: 0;
+
+  font-family: 'Inter', sans-serif;
+
+  div, h1, h2, h3, p {
+    font-family: 'Inter', sans-serif;
+  }
 }

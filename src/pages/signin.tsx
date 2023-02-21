@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
 import { useAuth } from "@/modules/auth";
+import { Login } from "@/pageComponent";
 
 export default function SignIn() {
   const { signIn, authState, signOut } = useAuth();
@@ -14,13 +15,7 @@ export default function SignIn() {
     }
   }, [authState, backRoute, router]);
 
-  // TODO: Need style for button
-
   return (
-    <>
-      <button onClick={authState === "signedOut" ? signIn : signOut}>
-        {authState === "signedOut" ? "Sign in" : "Sign out"}
-      </button>
-    </>
+    <Login handleLogin={authState === "signedOut" ? signIn : signOut}/>
   );
 }

@@ -3,10 +3,10 @@ import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 
 import React, { Children } from "react";
-import type { MenuProps } from "antd";
+import { MenuProps, Tooltip } from "antd";
 import { Layout, Menu, theme, ConfigProvider } from "antd";
 
-import { AuthContext } from "@/modules/auth";
+import { AuthContext, useAuth } from "@/modules/auth";
 
 import { PAGES } from "../constants";
 import {
@@ -35,6 +35,8 @@ export default function App({ Component, pageProps }: AppProps) {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const { signIn, authState, signOut  } = useAuth();
 
   const router = useRouter();
   const handleClick = (e: any) => {
@@ -82,15 +84,17 @@ export default function App({ Component, pageProps }: AppProps) {
                 items={items}
                 onClick={handleClick}
               />
+              <Tooltip placement="right" title={'Log out'} className='logout-btn'>
+                <button onClick={authState === "signedOut" ? signIn : signOut}>
+                  <img src="https://img.icons8.com/ios/50/FFFFFF/logout-rounded-left.png" alt='logout-btn'/>
+                </button>
+              </Tooltip>
             </Sider>
           </ConfigProvider>
           <Layout
             className="site-layout"
             style={{
-              padding: "0 30px",
               overflow: "auto",
-              maxWidth: "1440px",
-              margin: "0 auto",
             }}
           >
             <Content style={{}}>
