@@ -25,12 +25,6 @@ const INITIAL_CONTEXT: UserContext = {
 
 async function storeUserInFirestore(db: Firestore, user: User) {
   await setDoc(doc(db, "users", user.uid), {
-    email: user.email,
-    emailVerified: user.emailVerified,
-    photoUrl: user.photoURL,
-    displayName: user.displayName,
-  });
-  await setDoc(doc(db, "publicUsers", user.uid), {
     emailVerified: user.emailVerified,
     photoUrl: user.photoURL,
     displayName: user.displayName,
@@ -67,11 +61,13 @@ export function useAuth() {
   const app = getFirebase();
   const auth = getAuth(app);
   const authContext = useContext(Context);
+  const router = useRouter();
 
   const signIn = async () => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithPopup(auth, provider);
+      router.reload();
     } catch (_e) {}
   };
 
