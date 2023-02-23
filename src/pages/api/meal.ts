@@ -18,7 +18,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  // TODO: Set up firebase to accept the authorization header and validate it
   const firebaseApp = getFirebaseApp();
   await verifyIdToken(firebaseApp, req.headers.authorization || "");
   res.status(200).json({ data });
