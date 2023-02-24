@@ -1,0 +1,94 @@
+.diet {
+    padding-bottom: 5%;
+    &-content {
+        padding: 0 30px;
+        
+        &-edit, &-or {
+            margin-bottom: 10px;
+        }
+        
+        &-edit {
+            color: #00967E;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        &-or {
+            opacity: 0.8;
+            font-style: italic;
+        }
+    }
+    
+}
+
+.diet-form {
+    color: #404040;
+    padding-top: 20px;
+    width: fit-content;
+
+    margin: auto;
+
+    @media (min-width: 768px) {
+        margin: unset;
+    }
+
+    .input-group {
+        padding-bottom: 20px;
+        align-items: center;
+        
+        @media (min-width: 768px) {
+            display: flex;
+        }
+
+        div {
+            margin-bottom: 20px;
+            font-weight: 600;
+            
+            @media (min-width: 768px) {
+                min-width: 130px;
+                margin-bottom: 0;
+            }
+        }
+
+        input {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            box-shadow: rgb(0 0 0 / 10%) 0px 4px 6px -1px, rgb(0 0 0 / 6%) 0px 2px 4px -1px;
+            
+            width: 100%;
+            margin-bottom: 10px;
+
+            &:focus-visible {
+                outline-color: #00967E;
+            }
+
+            @media (min-width: 549px) {
+                width: unset;
+                margin-bottom: 10px;
+            }
+        }
+        
+        input:not(:last-child) {
+            margin-right: 20px;
+        }
+    }
+
+    .submit-btn {
+        text-align: center;
+        margin-top: 10px;
+        
+        @media (min-width: 768px) {
+            text-align: right;
+        }
+
+        button {
+            padding: 10px 40px;
+            background: #960018;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+    }
+}
