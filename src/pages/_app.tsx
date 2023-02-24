@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import React, { Children } from "react";
 import { MenuProps, Tooltip } from "antd";
 import { Layout, Menu, theme, ConfigProvider } from "antd";
+import { BarsOutlined } from '@ant-design/icons'; 
 
 import { AuthContext, useAuth } from "@/modules/auth";
 
@@ -38,11 +39,17 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const { signIn, authState, signOut  } = useAuth();
 
+  const sideBarRef = React.useRef<any>(null);
+
   const router = useRouter();
   const handleClick = (e: any) => {
     let path = PAGES[`${e.key}`];
     router.push(path);
   };
+
+  const handleSideBarControl = () => {
+    sideBarRef.current?.classList.toggle("sider-container-active");
+  }
 
   return (
     <AuthContext>
@@ -67,29 +74,35 @@ export default function App({ Component, pageProps }: AppProps) {
               components: {},
             }}
           >
-            <Sider
-              className="baselayout-sider"
-              collapsed
-              breakpoint="sm"
-              style={{
-                overflow: "auto",
-                left: 0,
-                top: 0,
-                bottom: 0,
-              }}
-            >
-              <Menu
-                mode="inline"
-                defaultSelectedKeys={["1"]}
-                items={items}
-                onClick={handleClick}
-              />
-              <Tooltip placement="right" title={'Log out'} className='logout-btn'>
-                <button onClick={authState === "signedOut" ? signIn : signOut}>
-                  <img src="https://img.icons8.com/ios/50/FFFFFF/logout-rounded-left.png" alt='logout-btn'/>
-                </button>
-              </Tooltip>
-            </Sider>
+            <div ref={sideBarRef} className="sider-container">
+              <Sider
+                className="baselayout-sider"
+                collapsed
+                breakpoint="sm"
+                style={{
+                  overflow: "auto",
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                }}
+              >
+                <Menu
+                  mode="inline"
+                  defaultSelectedKeys={["1"]}
+                  items={items}
+                  onClick={handleClick}
+                />
+                <Tooltip placement="right" title={'Log out'} className='logout-btn'>
+                  <button onClick={authState === "signedOut" ? signIn : signOut}>
+                    <img src="https://img.icons8.com/ios/50/FFFFFF/logout-rounded-left.png" alt='logout-btn'/>
+                  </button>
+                </Tooltip>
+              </Sider>
+              <button className="sider-container-button" onClick={handleSideBarControl}>
+                <BarsOutlined className="sider-container-button-icon"/>
+              </button>
+            </div>
+            
           </ConfigProvider>
           <Layout
             className="site-layout"
