@@ -12,7 +12,10 @@ export default async function handler(
 ) {
   const firebaseApp = getFirebaseApp();
   if (req.method === "POST") {
-    await verifyIdToken(firebaseApp, req.headers.authorization || "");
+    const { uid } = await verifyIdToken(
+      firebaseApp,
+      req.headers.authorization || ""
+    );
     const response = await axios.post(
       `${BACKEND_BASE_URL}/sd/meal/querySubstitutions`,
       req.body,
@@ -20,6 +23,7 @@ export default async function handler(
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          Authorization: uid,
         },
       }
     );

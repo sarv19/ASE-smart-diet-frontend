@@ -12,11 +12,10 @@ export default async function handler(
 ) {
   const firebaseApp = getFirebaseApp();
   if (req.method === "POST") {
-    const user = await verifyIdToken(
+    const { uid } = await verifyIdToken(
       firebaseApp,
       req.headers.authorization || ""
     );
-    console.log(user.uid, user.email);
 
     const response = await axios.post(
       `${BACKEND_BASE_URL}/sd/meal/queryAMeal`,
@@ -25,6 +24,7 @@ export default async function handler(
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
+          Authorization: uid,
         },
       }
     );
