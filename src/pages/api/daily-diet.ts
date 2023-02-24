@@ -38,7 +38,7 @@ export default async function handler(
     if ([301, 401].includes(data.code)) {
       await registerUserWithBackend(uid, email!);
       const data = await getDailyDiet();
-      console.log("🚀 ~ file: daily-diet.ts:41 ~ data:", data);
+
       return res.status(httpStatus.OK).json(data);
     }
 
