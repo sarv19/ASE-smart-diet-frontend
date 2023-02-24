@@ -1,14 +1,11 @@
 import "@/styles/globals.scss";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-
 import React, { Children } from "react";
 import { MenuProps, Tooltip } from "antd";
 import { Layout, Menu, theme, ConfigProvider } from "antd";
 import { BarsOutlined } from '@ant-design/icons'; 
-
 import { AuthContext, useAuth } from "@/modules/auth";
-
 import { PAGES } from "../constants";
 import {
   DietIcon,
@@ -17,6 +14,7 @@ import {
   ReportIcon,
   SettingIcon,
 } from "../pageComponent/Icons";
+import { getKeyByValue } from "@/components/utils";
 
 const { Content, Footer, Sider } = Layout;
 
@@ -88,7 +86,7 @@ export default function App({ Component, pageProps }: AppProps) {
               >
                 <Menu
                   mode="inline"
-                  defaultSelectedKeys={["1"]}
+                  selectedKeys={[getKeyByValue(PAGES, router.pathname) || Object.keys(PAGES)[0]]}
                   items={items}
                   onClick={handleClick}
                 />
