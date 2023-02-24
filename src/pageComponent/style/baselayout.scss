@@ -27,7 +27,15 @@
 }
 
 .ant-tabs {
-  padding: 0 30px;
+  padding: 0 5px;
+
+  @media (min-width: 768px) {
+    padding: 0 10px;
+  }
+
+  @media (min-width: 576px) {
+    padding: 0 30px;
+  }
 }
 
 .logout-btn {

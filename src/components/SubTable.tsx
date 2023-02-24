@@ -1,6 +1,7 @@
 import { Tooltip } from "antd";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
+import useWindowDimensions from "./hooks/useWindowDimensions";
 import Substitution from "./Substitution";
 
 type SubTableProps = {
@@ -12,6 +13,8 @@ type SubTableProps = {
 }
 
 const SubTable = ({ tableData, isSelectAll, result, setResult, mealId } : SubTableProps ) => {
+  const { height, width } = useWindowDimensions();
+
   const { ingredientName, calories, quantity, weight, ingredientId } = tableData;
   const [isOpen, setIsOpen] = useState(false);
   const [ischecked, setIsChecked] = useState(isSelectAll);
@@ -43,17 +46,19 @@ const SubTable = ({ tableData, isSelectAll, result, setResult, mealId } : SubTab
 
   return  (
     <div>
-      <div className={'table-body'}>
+      <div className={'table-body'} onClick={handleOpen}>
         <input type="checkbox" onChange={handleCheck} checked={ischecked} className={'table-checkbox'}></input>
         <div className={'table-body-title-big name'}>{ingredientName}</div>
         <div className={'table-body-title-small'}>{calories}</div>
-        <div className={'table-body-title-small'}>{quantity}</div>
         <div className={'table-body-title-small'}>{weight}</div>
-        <button className={'table-body-title-small table-body-btn'} onClick={handleOpen}>
-          <Tooltip placement="left" title={'Click to show subtitutions'}>
-            <img src='static/images/chevron-down.png' className={classNames('table-body-btn-icon', { 'is-active': isOpen }) }/>
-          </Tooltip>
-        </button>
+        {
+          width > 576 && 
+          <button className={'table-body-title-small table-body-btn'} onClick={handleOpen}>
+            <Tooltip placement="left" title={'Click to show subtitutions'}>
+              <img src='static/images/chevron-down.png' className={classNames('table-body-btn-icon', { 'is-active': isOpen }) }/>
+            </Tooltip>
+         </button>
+        }
       </div>
 
       { isOpen && subtitutions && 

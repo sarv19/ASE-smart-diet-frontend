@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Tabs, TabsProps } from 'antd';
 import { Header, TableComponent } from '../components';
+import data from '../data/data.json';
 
 interface DataType {
   ingredientId: React.Key;
@@ -47,17 +48,20 @@ const DailyDiet: React.FC = () => {
     } 
   }
 
+  const tableData: DataType[] = [
+    ...data.result
+  ];
+
   useEffect(() => {
-    fetchIngredients('breakfast');
+    // fetchIngredients('breakfast');
+    setIngredientList(tableData);
   }, [])
 
   const onChange = (key: string) => {
     fetchIngredients(key);
   };
 
-  // const tableData: DataType[] = [
-  //   ...data.result
-  // ];
+  
   
   const items: TabsProps['items'] = [
     {
