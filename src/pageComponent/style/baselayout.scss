@@ -46,3 +46,62 @@
     width: 40px;
   }
 }
+
+.sider-container {
+  display: flex;
+  height: 100vh;
+  width: 20px;
+  @media (min-width: 768px) {
+    width: 10%;
+  }
+
+  .baselayout-sider {
+    transform: translateX(-100%);
+     @media (min-width: 768px) {
+      transform: translateX(0);
+     }
+  }
+
+  &-button {
+    position: absolute;
+    top: 40px;
+    left: 10px;
+    z-index: 1;
+    background: none;
+    border: none;
+    transition: all 0.5s;
+    &:hover {
+      cursor: pointer;
+    }
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+
+    &-icon {
+      transform: scale(2)
+    }
+  }
+
+
+  &-active {
+    z-index: 10;
+    .baselayout-sider {
+      transform: translateX(0);
+    }
+
+    .sider-container-button {
+      width: calc(90% - 10px);
+      top: 0;
+      right: 0;
+      left: unset;
+      height: 100vh;
+      background-color: grey;
+      opacity: 0.1;
+
+      &-icon {
+        display: none;
+      }
+    }
+  }
+}
