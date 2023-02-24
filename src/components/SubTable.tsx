@@ -2,6 +2,8 @@ import { useAuth } from "@/modules/auth";
 import { Tooltip } from "antd";
 import classNames from "classnames";
 import { useEffect, useState } from "react";
+import Image from "next/image";
+
 import Substitution from "./Substitution";
 
 type SubTableProps = {
@@ -74,11 +76,15 @@ const SubTable = ({
           onClick={handleOpen}
         >
           <Tooltip placement="left" title={"Click to show subtitutions"}>
-            <img
-              src="static/images/chevron-down.png"
+            <Image
+              src="/static/images/chevron-down.png"
               className={classNames("table-body-btn-icon", {
                 "is-active": isOpen,
               })}
+              alt="Expand"
+              width={10}
+              height={10}
+              priority
             />
           </Tooltip>
         </button>
