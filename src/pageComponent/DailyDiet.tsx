@@ -43,6 +43,7 @@ const DailyDiet: React.FC = () => {
           },
         });
         const data = await response.json();
+        console.log("🚀 ~ file: DailyDiet.tsx:46 ~ data:", data);
         const ingredients = data.data.data.list;
         console.log(data);
         setMealId(data.data.mealId);
