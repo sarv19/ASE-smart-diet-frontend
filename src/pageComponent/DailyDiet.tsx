@@ -57,12 +57,9 @@ const DailyDiet: React.FC = () => {
     [currentUser]
   );
 
-  const tableData: DataType[] = [...data.result];
-
   useEffect(() => {
-    // fetchIngredients('breakfast');
-    currentUser && setIngredientList(tableData);
-  }, [currentUser, tableData]);
+    currentUser && fetchIngredients('breakfast');
+  }, [currentUser, fetchIngredients]);
 
   const onChange = (key: string) => {
     fetchIngredients(key);
