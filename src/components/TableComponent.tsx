@@ -2,6 +2,7 @@ import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Error, SubTable } from ".";
+import useWindowDimensions from "./hooks/useWindowDimensions";
 
 interface TableProps {
   ingredientId: React.Key;
@@ -18,6 +19,7 @@ export type TableComponentProps = {
 }
 
 const TableComponent = (props: TableComponentProps) => {
+  const { height, width } = useWindowDimensions();
   const { tableData, mealId } = props;
 
   const [isSelectAll, setIsSelectAll] = useState(false);
@@ -43,9 +45,8 @@ const TableComponent = (props: TableComponentProps) => {
         <input type="checkbox" onChange={ handleSelectAll } checked={ isSelectAll } className={ 'table-header-checkbox' }></input>
         <div className={'table-header-title-big'}>Ingredient</div>
         <div className={'table-header-title-small'}>Calories</div>
-        <div className={'table-header-title-small'}>Quantity</div>
         <div className={'table-header-title-small'}>Weight</div>
-        <div className={'table-header-title-small'}>Subtitution</div>
+        {width > 576 && <div className={'table-header-title-small'}>Subtitution</div>}
       </div>
     )
   }
