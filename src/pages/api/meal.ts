@@ -1,5 +1,10 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import data from '../../data/data.json'
+import type { NextApiRequest, NextApiResponse } from "next";
+
+import data from "../../data/data.json";
+
+import { verifyIdToken } from "@/api/shared/auth";
+import { getFirebaseApp } from "@/api/shared/firebaseApp";
+
 type Data = {
   ingredientId: React.Key;
   ingredientName: string;
@@ -7,11 +12,13 @@ type Data = {
   quantity: number;
   weight: number;
   substitute?: Data[];
-}
+};
 
-export default function handler(
+export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  res.status(200).json({ data })
+  const firebaseApp = getFirebaseApp();
+  await verifyIdToken(firebaseApp, req.headers.authorization || "");
+  res.status(200).json({ data });
 }
