@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Tabs, TabsProps } from "antd";
 import { Header, TableComponent } from "../components";
 import { useAuth } from "@/modules/auth";
@@ -26,34 +26,37 @@ const DailyDiet: React.FC = () => {
 
   const { currentUser } = useAuth();
 
-  const fetchIngredients = async (mealType: string) => {
-    const requestData: GetMealPlanResponse = {
-      userId: 2023021021401001,
-      mealType: `${mealType}`,
-      pageNum: 1,
-      pageSize: 10,
-    };
-    try {
-      const response = await fetch("/api/daily-diet", {
-        method: "POST",
-        body: JSON.stringify(requestData),
-        headers: {
-          Authorization: await currentUser!.getIdToken(),
-        },
-      });
-      const data = await response.json();
-      const ingredients = data.data.data.list;
-      console.log(data);
-      setMealId(data.data.mealId);
-      setIngredientList(ingredients);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const fetchIngredients = useCallback(
+    async (mealType: string) => {
+      const requestData: GetMealPlanResponse = {
+        userId: 2023021021401001,
+        mealType: `${mealType}`,
+        pageNum: 1,
+        pageSize: 10,
+      };
+      try {
+        const response = await fetch("/api/daily-diet", {
+          method: "POST",
+          body: JSON.stringify(requestData),
+          headers: {
+            Authorization: await currentUser!.getIdToken(),
+          },
+        });
+        const data = await response.json();
+        const ingredients = data.data.data.list;
+        console.log(data);
+        setMealId(data.data.mealId);
+        setIngredientList(ingredients);
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    [currentUser]
+  );
 
   useEffect(() => {
-    fetchIngredients("breakfast");
-  }, []);
+    if (currentUser) fetchIngredients("breakfast");
+  }, [currentUser, fetchIngredients]);
 
   const onChange = (key: string) => {
     fetchIngredients(key);
