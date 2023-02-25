@@ -6,6 +6,7 @@ import Header from "./Header";
 import Error from "./Error";
 import Recipes from "./Recipes";
 import Substitution from "./Substitution";
+import RecipeTile from "./RecipeTile";
 
 export {
   ProgressBar,
@@ -15,5 +16,6 @@ export {
   Header,
   Error,
   Recipes,
-  Substitution
+  Substitution,
+  RecipeTile
 }

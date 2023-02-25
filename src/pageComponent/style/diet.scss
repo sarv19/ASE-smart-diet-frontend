@@ -9,7 +9,6 @@
         
         &-edit {
             color: #00967E;
-            font-weight: 700;
             font-size: 18px;
         }
         
@@ -63,7 +62,7 @@
                 outline-color: #00967E;
             }
 
-            @media (min-width: 549px) {
+            @media (min-width: 555px) {
                 width: unset;
                 margin-bottom: 10px;
             }

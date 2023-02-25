@@ -1,0 +1,81 @@
+.recipe-tile {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    padding: 30px;
+    margin-bottom: 20px;
+
+    width: 30%;
+    min-width: 240px;
+
+    &-img {
+        width: 70%;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        margin-bottom: 20px;
+    }
+
+    &-title {
+        font-size: 20px;
+        font-weight: 500;
+        max-width: 70%;
+        margin: auto;
+    }
+
+    &-nutrition {
+        margin: 20px 0;
+        min-height: 40px;
+
+        display: flex;
+        justify-content: space-between;
+
+        &-calories {
+            font-weight: 400;
+            font-size: 12px;
+            line-height: 15px;
+
+            color: #404040;
+        }
+
+        &-allergens {
+            display: flex;
+            flex-direction: column;
+
+            &-item {
+                font-weight: 500;
+                font-size: 12px;
+                line-height: 15px;
+    
+                color: #960018;
+
+                &:not(:last-child) {
+                    margin-bottom: 5px;
+                }
+            }
+        }
+    }
+
+    &-info {
+        display: flex;
+        justify-content: space-between;
+
+        text-align: left;
+
+        &-right {
+            text-align: right;
+        }
+
+        &-label {
+            color: #404040;
+            font-size: 15px;
+            margin: 10px 0;
+        }
+
+        &-value {
+            font-weight: 500;
+            font-size: 18px;
+        }
+    }
+}

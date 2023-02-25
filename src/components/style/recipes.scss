@@ -1,7 +1,7 @@
 .recipes {
     padding: 30px;
     text-align: center;
-    overflow: hidden;
+    // overflow: auto;
     height: 100%;
     box-sizing: border-box;
     position: relative;
@@ -19,15 +19,16 @@
         right: 0;
         overflow: hidden;
         
-        background-image: url('/public/static/images/recipe-background.jpg');
+        background-image: url('/static/images/recipe-background.jpg');
         background-size: cover;
     }
 
     &-title {
         font-weight: 600;
         font-size: 35px;
-        color: #960018;
-        text-shadow: 1px 1px 2px white;
+        color: white;
+        text-shadow: 1px 1px 2px grey;
+        margin-bottom: 10px;
     }
 
     &-close {
@@ -44,16 +45,12 @@
         }
     }
 
-    &-commingsoon {
-        width: 10%;
-        padding-top: 100px;
-        margin: auto;
-        height: auto;
+    &-list {
+        padding: 40px 0 20px;
 
-        .commingsoon-text {
-            padding-top: 20px;
-            font-size: 20px;
-        }
+        display: flex;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
     }
 }
 

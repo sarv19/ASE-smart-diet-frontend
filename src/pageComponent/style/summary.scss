@@ -7,8 +7,12 @@
     }
     
     .progress-bar {
-        width: 50%;
+        width: 80%;
         margin: auto;
+        
+        @media (min-width: 768px) {
+            width: 50%;
+        }
 
         &-sumup {
             text-align: right;
