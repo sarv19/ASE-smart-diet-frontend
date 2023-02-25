@@ -13,7 +13,7 @@ const RecipeTile = ({recipe}: any) => {
                 <div className='recipe-tile-nutrition-calories'>{recipe.calories} calories</div>
                 <div className='recipe-tile-nutrition-allergens'>
                     {recipe.allergens?.map((item: any, i: number) => 
-                        <Tooltip title={item.label} className='recipe-tile-nutrition-allergens-item'>*{item.symbol}</Tooltip>
+                        <Tooltip key={i} title={item.label} className='recipe-tile-nutrition-allergens-item'>*{item.symbol}</Tooltip>
                     )}
                 </div>
             </div>
