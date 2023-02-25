@@ -92,12 +92,17 @@
         padding: 10px 40px;
         background: #960018;
         color: white;
-        border: none;
         border-radius: 20px;
+        border: 1px solid #960018;
         font-weight: 500;
     
+        transition: all 0.3s ease-in-out;
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+
         &:hover {
-          cursor: pointer;
+            cursor: pointer;
+            background-color: white;
+            color: #960018;
         }
       }
     }
