@@ -1,12 +1,10 @@
-
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.scss'
-import { CommingSoon } from '@/pageComponent'
-
-const inter = Inter({ subsets: ['latin'] })
+import { AuthRequired } from "@/modules/auth";
+import { HomePage } from "@/pageComponent";
 
 export default function Home() {
   return (
-    <CommingSoon />
+    <AuthRequired>
+      <HomePage />
+    </AuthRequired>
   )
 }

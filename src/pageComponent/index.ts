@@ -1,5 +1,5 @@
 import Login from "./Login";
-import Home from "./Home";
+import HomePage from "./HomePage";
 import Blog from "./DailyDiet";
 import Summary from "./Summary";
 import CommingSoon from "./CommingSoon";
@@ -9,7 +9,7 @@ import DietForm from "./DietForm";
 
 export {
   Login,
-  Home,
+  HomePage,
   Blog,
   Summary,
   CommingSoon,

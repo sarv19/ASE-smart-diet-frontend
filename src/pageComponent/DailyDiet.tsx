@@ -84,10 +84,10 @@ const DailyDiet: React.FC = () => {
   ];
 
   return (
-    <>
+    <div style={{maxWidth: '1440px', margin: 'auto'}}>
       <Header text={`Today's menu`} />
       <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
-    </>
+    </div>
   );
 };
 
