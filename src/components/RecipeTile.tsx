@@ -1,16 +1,16 @@
-import { Tooltip } from "antd";
+import { Tooltip } from 'antd';
 
 const RecipeTile = ({recipe}: any) => {
     return (
         <div className='recipe-tile'>
-            <a href={recipe.recipeLink} target='_blank' className='recipe-tile-img'>
+            <a href={recipe.recipeLink} target='_blank' className='recipe-tile-img' rel='noreferrer'>
                 <img
                     alt={recipe.title}
                     src={recipe.img}
                 />
             </a>
-            <a href={recipe.recipeLink} target='_blank' className="recipe-tile-link">
-                <div className="recipe-tile-title">{recipe.title}</div>
+            <a href={recipe.recipeLink} target='_blank' className='recipe-tile-link' rel='noreferrer'>
+                <div className='recipe-tile-title'>{recipe.title}</div>
             </a>
             <div className='recipe-tile-nutrition'>
                 <div className='recipe-tile-nutrition-calories'>{recipe.calories} calories</div>
