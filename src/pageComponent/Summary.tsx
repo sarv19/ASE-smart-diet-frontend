@@ -21,9 +21,9 @@ const Summary = () => {
   return (
     <div className="summary">
       <Head>
-        <title>Today's summary</title>
+        <title>Today&apos;s summary</title>
       </Head>
-      <Header text={`Today's summary`}/>
+      <Header text={'Today\'s summary'}/>
       <div className="progress-bar">
         <Progress percent={15} strokeColor={{ '0%': '#108ee9', '100%': '#87d068' }} />
         <div className="progress-bar-sumup">300 / 2000 calories</div>

@@ -119,12 +119,19 @@
 
     &-calories {
         display: flex;
-        justify-content: center;
         flex-direction: column;
+        justify-content: center;
         padding: 30px 10px 0;
-
+        text-align: right;
+        
+        p, b {
+            font-size: 12px;
+        }
+        
         @media (min-width: 768px) {
             padding: 0 30px;
+            justify-content: end;
+            margin-bottom: -32px;
         }
         
         &-target {

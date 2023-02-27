@@ -41,7 +41,7 @@ const SubTable = ({
       body: JSON.stringify({ ingredientId: ingredientId, mealId: mealId }),
     });
     const data = await response.json();
-    setSubtitutions(data.data.data.list);
+    setSubtitutions(data?.data?.data?.list);
   }
 
   function handleCheck(event: React.ChangeEvent<HTMLInputElement>) {
@@ -62,31 +62,29 @@ const SubTable = ({
 
   return (
     <div>
-      <div className={"table-body"} onClick={handleOpen}>
+      <div className={"table-body"}>
         <input
           type="checkbox"
           onChange={handleCheck}
           checked={ischecked}
           className={"table-checkbox"}
         ></input>
-        <div className={"table-body-title-big name"}>{ingredientName}</div>
-        <div className={"table-body-title-small"}>{calories}</div>
-        <div className={"table-body-title-small"}>{weight}</div>
-        {width > 576 && (
-          <button
-            className={"table-body-title-small table-body-btn"}
-            onClick={handleOpen}
-          >
-            <Tooltip placement="left" title={"Click to show subtitutions"}>
-              <img
-                src="static/images/chevron-down.png"
-                className={classNames("table-body-btn-icon", {
-                  "is-active": isOpen,
-                })}
-              />
-            </Tooltip>
-          </button>
-        )}
+        <div className={"table-body-title-big name"} onClick={handleOpen}>{ingredientName}</div>
+        <div className={"table-body-title-small"} onClick={handleOpen}>{calories}</div>
+        <div className={"table-body-title-small"} onClick={handleOpen}>{weight}</div>
+        <button
+          className={"table-body-title-small table-body-btn"}
+          onClick={handleOpen}
+        >
+          <Tooltip placement="left" title={"Click to show subtitutions"}>
+            <img
+              src="static/images/chevron-down.png"
+              className={classNames("table-body-btn-icon", {
+                "is-active": isOpen,
+              })}
+            />
+          </Tooltip>
+        </button>
       </div>
 
       {isOpen &&

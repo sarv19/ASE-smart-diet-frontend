@@ -16,11 +16,12 @@ interface TableProps {
 export type TableComponentProps = {
   tableData?: TableProps[];
   mealId?: number;
+  setCalories: any;
 }
 
 const TableComponent = (props: TableComponentProps) => {
   const { height, width } = useWindowDimensions();
-  const { tableData, mealId } = props;
+  const { tableData, mealId, setCalories } = props;
 
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [result, setResult] = useState<TableProps[] | undefined>([]);
@@ -38,6 +39,13 @@ const TableComponent = (props: TableComponentProps) => {
       setResult([]);
     }
   }, [isSelectAll]); 
+
+  useEffect(() => {
+    if (result) {
+      const currentCalories = result.reduce<number>((currentValue: number, item: TableProps) => item.calories + currentValue, 0);
+      setCalories(currentCalories);
+    }
+  }, [result]);
   
   function TableHeader() {
     return (
@@ -46,7 +54,7 @@ const TableComponent = (props: TableComponentProps) => {
         <div className={'table-header-title-big'}>Ingredient</div>
         <div className={'table-header-title-small'}>Calories</div>
         <div className={'table-header-title-small'}>Weight</div>
-        {width > 576 && <div className={'table-header-title-small'}>Subtitution</div>}
+        <div className={'table-header-title-small'}>Subtitution</div>
       </div>
     )
   }
