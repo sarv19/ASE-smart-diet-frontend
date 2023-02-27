@@ -58,9 +58,14 @@ const DailyDiet: React.FC = () => {
     [currentUser]
   );
 
+  // useEffect(() => {
+  //   currentUser && fetchIngredients('breakfast');
+  // }, [currentUser, fetchIngredients]);
+
+  const tableData: DataType[] = [...data.result];
   useEffect(() => {
-    currentUser && fetchIngredients('breakfast');
-  }, [currentUser, fetchIngredients]);
+    setIngredientList(tableData);
+  }, [])
 
   const onChange = (key: string) => {
     fetchIngredients(key);
@@ -89,7 +94,13 @@ const DailyDiet: React.FC = () => {
       <Head>
         <title>Today's menu</title>
       </Head>
-      <Header text={`Today's menu`} />
+      <div className="daily-diet-header">
+        <Header text={`Today's menu`} />
+        <div className="daily-diet-header-calories">
+          <p className="daily-diet-header-calories-target"><b>Target calories:</b> 400-500</p>
+          <p className="daily-diet-header-calories-sum"><b>Temporary calories sum:</b> 380</p>
+        </div>
+      </div>
       <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
     </div>
   );
