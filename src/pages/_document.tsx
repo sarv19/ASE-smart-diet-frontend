@@ -4,7 +4,8 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <link rel="shortcut icon" href="/static/images/diet-icon.png" />
+        <link href="/static/images/dark-diet-icon.png" rel="shortcut icon" media="(prefers-color-scheme: light)"/>
+        <link href="/static/images/diet-icon.png" rel="shortcut icon" media="(prefers-color-scheme: dark)"/>
       </Head>
       <body>
         <Main />
