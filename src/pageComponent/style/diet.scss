@@ -105,3 +105,41 @@
         }
     }
 }
+
+.daily-diet-header {
+    display: flex;
+    justify-content: space-between; 
+
+    &-calories {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        padding: 30px 10px 0;
+
+        @media (min-width: 768px) {
+            padding: 0 30px;
+        }
+        
+        &-target {
+            margin: 0;
+            margin-bottom: 5px;
+            font-size: 12px;
+            // white-space: nowrap;
+
+            @media (min-width: 576px) {
+                margin-bottom: 10px;
+                font-size: 14px;
+            }
+        }
+
+        &-sum {
+            margin: 0;
+            font-size: 12px;
+            // white-space: nowrap;
+
+            @media (min-width: 576px) {
+                font-size: 14px;
+            }
+        }
+    }
+}
