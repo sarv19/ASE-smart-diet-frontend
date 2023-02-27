@@ -5,6 +5,7 @@ import { useAuth } from "@/modules/auth";
 
 import { Header, TableComponent } from "../components";
 import data from "../data/data.json";
+import Head from "next/head";
 
 interface DataType {
   ingredientId: React.Key;
@@ -85,6 +86,9 @@ const DailyDiet: React.FC = () => {
 
   return (
     <div style={{maxWidth: '1440px', margin: 'auto'}}>
+      <Head>
+        <title>Today's menu</title>
+      </Head>
       <Header text={`Today's menu`} />
       <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
     </div>

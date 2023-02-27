@@ -1,8 +1,12 @@
+import Head from "next/head";
 import Link from "next/link";
 
 const HomePage = () => {
   return (
     <div className="homepage">
+      <Head>
+        <title>Smart Diet Homepage</title>
+      </Head>
       <div className="homepage-img">
         <img src={'static/images/right_place.svg'} alt='Working girl'/>
       </div>

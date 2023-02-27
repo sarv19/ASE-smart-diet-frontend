@@ -43,6 +43,13 @@
             display: flex;
         }
 
+        &:first-child {
+            .input-group-title::after {
+                content: '*';
+                color: red;
+            }
+        }
+
         div {
             margin-bottom: 20px;
             font-weight: 600;

@@ -1,4 +1,5 @@
 import { Progress } from "antd";
+import Head from "next/head";
 import { ImageAndContent, Header } from "../components";
 
 const mockData = {
@@ -19,6 +20,9 @@ const Summary = () => {
 
   return (
     <div className="summary">
+      <Head>
+        <title>Today's summary</title>
+      </Head>
       <Header text={`Today's summary`}/>
       <div className="progress-bar">
         <Progress percent={15} strokeColor={{ '0%': '#108ee9', '100%': '#87d068' }} />

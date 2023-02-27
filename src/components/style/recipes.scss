@@ -1,7 +1,6 @@
 .recipes {
     padding: 30px;
     text-align: center;
-    // overflow: auto;
     height: 100%;
     box-sizing: border-box;
     position: relative;
@@ -51,6 +50,9 @@
         display: flex;
         justify-content: space-evenly;
         flex-wrap: wrap;
+
+        width: 80%;
+        margin: auto;
     }
 }
 

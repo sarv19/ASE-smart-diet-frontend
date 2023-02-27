@@ -1,6 +1,11 @@
+import Head from "next/head";
+
 const Login = ({ handleLogin }: any) => {
   return (
     <div className='login-page'>
+      <Head>
+        <title>Signing in</title>
+      </Head>
       <div className='login-page-left'>
       </div>
       <div className='login-page-right'>
