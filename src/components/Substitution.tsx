@@ -34,7 +34,6 @@ const Substitution = ({ tableData, result, setResult } : SubTableProps ) => {
           <div className={'name'}>{ingredientName}</div>
         </div>
         <div className={'table-body-title-small'}>{calories}</div>
-        <div className={'table-body-title-small'}>{quantity}</div>
         <div className={'table-body-title-small'}>{weight}</div>
         <div className={'table-body-title-small table-body-btn'}></div>
       </div>
