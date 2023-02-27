@@ -133,6 +133,14 @@
             justify-content: end;
             margin-bottom: -32px;
         }
+
+        .warning {
+            color: red;
+        }
+
+        .good {
+            color: #00967E;
+        }
         
         &-target {
             margin: 0;

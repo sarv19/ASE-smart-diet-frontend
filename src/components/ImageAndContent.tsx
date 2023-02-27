@@ -68,7 +68,7 @@ const ImageAndContent = (props: ImageAndContentProps) => {
                 {
                   content.nutrients &&
                     Object.entries(content.nutrients)?.map((item, index) => {
-                      return <li key={index}>{`${item[0]}: ${item[1]}gr`}</li>
+                      return <li key={index}>{`${item[0]}: ${item[1]} ${item[0] == 'Protein'? 'gr': 'mg'}`}</li>
                     })
                 }
               </ul>

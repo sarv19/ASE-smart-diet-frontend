@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Tabs, TabsProps } from "antd";
+import classnames from 'classnames'
 
 import { useAuth } from "@/modules/auth";
 
@@ -59,14 +60,14 @@ const DailyDiet: React.FC = () => {
     [currentUser]
   );
 
-  useEffect(() => {
-    currentUser && fetchIngredients('breakfast');
-  }, [currentUser, fetchIngredients]);
-
-  // const tableData: DataType[] = [...data.result];
   // useEffect(() => {
-  //   setIngredientList(tableData);
-  // }, [])
+  //   currentUser && fetchIngredients('breakfast');
+  // }, [currentUser, fetchIngredients]);
+
+  const tableData: DataType[] = [...data.result];
+  useEffect(() => {
+    setIngredientList(tableData);
+  }, [])
 
   const onChange = (key: string) => {
     fetchIngredients(key);
@@ -99,7 +100,12 @@ const DailyDiet: React.FC = () => {
         <Header text={`Today's menu`} />
         <div className="daily-diet-header-calories">
           <p className="daily-diet-header-calories-target"><b>Target calories:</b> 400-500</p>
-          <p className="daily-diet-header-calories-sum"><b>Temporary calories sum:</b> {totalCalories}</p>
+          <p className={classnames("daily-diet-header-calories-sum",
+            {"warning": totalCalories > 500},
+            {"good": totalCalories > 400 && totalCalories < 500})}
+          >
+            <b>Temporary calories sum:</b> {totalCalories}
+          </p>
         </div>
       </div>
       <Tabs defaultActiveKey="1" items={items} onChange={onChange} />

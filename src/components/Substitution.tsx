@@ -1,5 +1,3 @@
-import { Tooltip } from "antd";
-import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { TableComponentProps } from "./TableComponent";
 

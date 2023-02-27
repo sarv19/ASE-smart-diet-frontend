@@ -33,15 +33,33 @@ const SubTable = ({
 
   async function handleOpen() {
     setIsOpen(!isOpen);
-    const response = await fetch("/api/substitutions", {
-      headers: {
-        Authorization: await currentUser!.getIdToken(),
+    // TO DO: use real data
+
+    // const response = await fetch("/api/substitutions", {
+    //   headers: {
+    //     Authorization: await currentUser!.getIdToken(),
+    //   },
+    //   method: "POST",
+    //   body: JSON.stringify({ ingredientId: ingredientId, mealId: mealId }),
+    // });
+    // const data = await response.json();
+    const data = [
+      {
+        "ingredientId": 1,
+        "ingredientName": "Pork loin",
+        "calories": 185,
+        "quantity": 1,
+        "weight": 150,
       },
-      method: "POST",
-      body: JSON.stringify({ ingredientId: ingredientId, mealId: mealId }),
-    });
-    const data = await response.json();
-    setSubtitutions(data?.data?.data?.list);
+      {
+        "ingredientId": 2,
+        "ingredientName": "Lamb chop",
+        "calories": 205,
+        "quantity": 1,
+        "weight": 130,
+      },
+    ]
+    setSubtitutions(data);
   }
 
   function handleCheck(event: React.ChangeEvent<HTMLInputElement>) {
