@@ -35,31 +35,31 @@ const SubTable = ({
     setIsOpen(!isOpen);
     // TO DO: use real data
 
-    // const response = await fetch("/api/substitutions", {
-    //   headers: {
-    //     Authorization: await currentUser!.getIdToken(),
+    const response = await fetch("/api/substitutions", {
+      headers: {
+        Authorization: await currentUser!.getIdToken(),
+      },
+      method: "POST",
+      body: JSON.stringify({ ingredientId: ingredientId, mealId: mealId }),
+    });
+    const data = await response.json();
+    // const data = [
+    //   {
+    //     "ingredientId": 1,
+    //     "ingredientName": "Pork loin",
+    //     "calories": 185,
+    //     "quantity": 1,
+    //     "weight": 150,
     //   },
-    //   method: "POST",
-    //   body: JSON.stringify({ ingredientId: ingredientId, mealId: mealId }),
-    // });
-    // const data = await response.json();
-    const data = [
-      {
-        "ingredientId": 1,
-        "ingredientName": "Pork loin",
-        "calories": 185,
-        "quantity": 1,
-        "weight": 150,
-      },
-      {
-        "ingredientId": 2,
-        "ingredientName": "Lamb chop",
-        "calories": 205,
-        "quantity": 1,
-        "weight": 130,
-      },
-    ]
-    setSubtitutions(data);
+    //   {
+    //     "ingredientId": 2,
+    //     "ingredientName": "Lamb chop",
+    //     "calories": 205,
+    //     "quantity": 1,
+    //     "weight": 130,
+    //   },
+    // ]
+    setSubtitutions(data?.data?.data?.list);
   }
 
   function handleCheck(event: React.ChangeEvent<HTMLInputElement>) {
@@ -107,7 +107,7 @@ const SubTable = ({
 
       {isOpen &&
         subtitutions &&
-        subtitutions.map((item: any, index: number) => {
+        subtitutions?.map((item: any, index: number) => {
           return (
             <Substitution
               key={index}
