@@ -1,6 +1,7 @@
 import { capitalizeFirstLetter } from '@/components/utils';
 import { useRouter } from 'next/router';
 import{ useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const nutritionList = ['calories', 'protein', 'carbohydrate', 'fat', 'minerals'];
 
@@ -16,6 +17,7 @@ const DietForm = () => {
     const [values, setValues] = useState(initialValues);
 
     const router = useRouter();
+    const { t } = useTranslation('', { useSuspense: false });
 
     const handleInputChange = (e: any, i: number) => {
         const { name, value } = e.target;
@@ -42,7 +44,7 @@ const DietForm = () => {
                         <div className='input-group-title'>{ capitalizeFirstLetter(item.nutritionType) }</div>
                         <input
                             name='min'
-                            placeholder='Min Value'
+                            placeholder={t('Min Value') || 'Min Value'}
                             value={values[i].min}
                             type='number'
                             required={i === 0}
@@ -50,7 +52,7 @@ const DietForm = () => {
                         />
                         <input
                             name='max'
-                            placeholder='Max Value'
+                            placeholder={t('Max Value') || 'Max Value'}
                             value={values[i].max}
                             type='numbe r'
                             required={i === 0}
@@ -59,7 +61,7 @@ const DietForm = () => {
                     </div>
                 )}
                 <div className='submit-btn'>
-                    <button type='submit'> Submit </button>
+                    <button type='submit'> {t('Submit')} </button>
                 </div>
             </form>
         </div>

@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Error, SubTable } from ".";
-import useWindowDimensions from "./hooks/useWindowDimensions";
+import { useTranslation } from 'react-i18next';
 
 interface TableProps {
   ingredientId: React.Key;
@@ -20,8 +20,8 @@ export type TableComponentProps = {
 }
 
 const TableComponent = (props: TableComponentProps) => {
-  const { height, width } = useWindowDimensions();
   const { tableData, mealId, setCalories } = props;
+  const { t } = useTranslation('', { useSuspense: false });
 
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [result, setResult] = useState<TableProps[] | undefined>([]);
@@ -51,10 +51,10 @@ const TableComponent = (props: TableComponentProps) => {
     return (
       <div className="table-header">
         <input type="checkbox" onChange={ handleSelectAll } checked={ isSelectAll } className={ 'table-header-checkbox' }></input>
-        <div className={'table-header-title-big'}>Ingredient</div>
-        <div className={'table-header-title-small'}>Calories</div>
-        <div className={'table-header-title-small'}>Weight</div>
-        <div className={'table-header-title-small'}>Subtitution</div>
+        <div className={'table-header-title-big'}>{t('Ingredient')}</div>
+        <div className={'table-header-title-small'}>{t('Calories')}</div>
+        <div className={'table-header-title-small'}>{t('Weight')}</div>
+        <div className={'table-header-title-small'}>{t('Subtitution')}</div>
       </div>
     )
   }
@@ -80,7 +80,7 @@ const TableComponent = (props: TableComponentProps) => {
         <SubTable key={index} mealId={mealId} tableData={item} isSelectAll={isSelectAll} result={result} setResult={setResult}/>)
       }
       <div className={'done'}>
-        <button onClick={handleClick} className={classNames('done-btn', {'disabled': (!result || result.length === 0)})}>Done</button>
+        <button onClick={handleClick} className={classNames('done-btn', {'disabled': (!result || result.length === 0)})}>{t('Done')}</button>
       </div>
     </div>
   )

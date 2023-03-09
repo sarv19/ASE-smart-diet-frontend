@@ -1,12 +1,13 @@
 import "@/styles/globals.scss";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
-import React, { Children } from "react";
-import { MenuProps, Tooltip } from "antd";
+import React, { Children, useEffect, useState } from "react";
+import { MenuProps, Select, Switch, Tooltip } from "antd";
 import { Layout, Menu, theme, ConfigProvider } from "antd";
 import { BarsOutlined } from '@ant-design/icons'; 
 import { AuthContext, useAuth } from "@/modules/auth";
 import { PAGES } from "../constants";
+import { useTranslation } from 'react-i18next';
 import {
   DietIcon,
   HomeIcon,
@@ -15,6 +16,9 @@ import {
   SettingIcon,
 } from "../pageComponent/Icons";
 import { getKeyByValue } from "@/components/utils";
+
+// import i18n (needs to be bundled ;)) 
+import './i18n';
 
 const { Content, Footer, Sider } = Layout;
 
@@ -34,8 +38,11 @@ export default function App({ Component, pageProps }: AppProps) {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
+  
   const { signIn, authState, signOut  } = useAuth();
+  
+  const { t, i18n } = useTranslation('', { useSuspense: false });
+  const [currentLng, setCurrentLang] = useState('en-CA');
 
   const sideBarRef = React.useRef<any>(null);
 
@@ -48,6 +55,15 @@ export default function App({ Component, pageProps }: AppProps) {
   const handleSideBarControl = () => {
     sideBarRef.current?.classList.toggle("sider-container-active");
   }
+
+  function handleChangeLanguage(checked: boolean) {
+    i18n.changeLanguage(checked? 'en-CA' : 'fr-FR');
+  };
+
+  //TO DO: fix the logic to make the btn show the right language when the app 1st loads
+  useEffect(() => {
+    if (currentLng !== i18n.language) setCurrentLang(i18n.language);
+  },[])
 
   return (
     <AuthContext>
@@ -90,11 +106,31 @@ export default function App({ Component, pageProps }: AppProps) {
                   items={items}
                   onClick={handleClick}
                 />
-                <Tooltip placement="right" title={'Log out'} className='logout-btn'>
-                  <button onClick={authState === "signedOut" ? signIn : signOut}>
-                    <img src="https://img.icons8.com/ios/50/FFFFFF/logout-rounded-left.png" alt='logout-btn'/>
-                  </button>
-                </Tooltip>
+                <div className='functional-btns'>
+                  <div className='functional-btns-lang'>
+                    <ConfigProvider
+                      theme={{
+                        token: {
+                          colorPrimary: "#00967E",
+                          colorBgLayout: "#fff",
+                        },
+                        components: {},
+                      }}
+                    >
+                      <Switch 
+                        checkedChildren="EN"
+                        unCheckedChildren="FR"
+                        defaultChecked
+                        onChange={handleChangeLanguage}
+                      />
+                    </ConfigProvider>
+                  </div>
+                  <Tooltip placement="right" title={'Log out'} className='logout-btn'>
+                    <button onClick={authState === "signedOut" ? signIn : signOut}>
+                      <img src="https://img.icons8.com/ios/50/FFFFFF/logout-rounded-left.png" alt='logout-btn'/>
+                    </button>
+                  </Tooltip>
+                </div>
               </Sider>
               <button className="sider-container-button" onClick={handleSideBarControl}>
                 <BarsOutlined className="sider-container-button-icon"/>

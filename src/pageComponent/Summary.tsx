@@ -1,6 +1,7 @@
 import { Progress } from "antd";
 import Head from "next/head";
 import { ImageAndContent, Header } from "../components";
+import { useTranslation } from 'react-i18next';
 
 const mockData = {
   'breakfast': {
@@ -17,20 +18,21 @@ const mockData = {
 }
 
 const Summary = () => {
+  const { t } = useTranslation('', { useSuspense: false });
 
   return (
     <div className="summary">
       <Head>
-        <title>Today&apos;s summary</title>
+        <title>{t('Summary')}</title>
       </Head>
-      <Header text={'Today\'s summary'}/>
+      <Header text={t("Today's summary")}/>
       <div className="progress-bar">
         <Progress percent={20.75} strokeColor={{ '0%': '#108ee9', '100%': '#87d068' }} />
-        <div className="progress-bar-sumup">415 / 2000 calories</div>
+        <div className="progress-bar-sumup">415 / 2000 {t('calories')}</div>
       </div>
-      <ImageAndContent image={'static/images/breakfast.png'} title={'Breakfast'} content={mockData.breakfast}/>
-      <ImageAndContent image={'static/images/cooking.png'} title={'Lunch'} content={mockData.lunch} reverse/>
-      <ImageAndContent image={'static/images/snack.png'} title={'Dinner'} content={mockData.dinner}/>
+      <ImageAndContent image={'static/images/breakfast.png'} title={t('Breakfast') || 'Breakfast'} content={mockData.breakfast}/>
+      <ImageAndContent image={'static/images/cooking.png'} title={t('Lunch') || 'Lunch'} content={mockData.lunch} reverse/>
+      <ImageAndContent image={'static/images/snack.png'} title={t('Dinner') || 'Dinner'} content={mockData.dinner}/>
     </div>
 
   )

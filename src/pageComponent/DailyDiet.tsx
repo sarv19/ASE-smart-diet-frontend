@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Tabs, TabsProps } from "antd";
 import classnames from 'classnames'
-
+import { useTranslation } from 'react-i18next';
 import { useAuth } from "@/modules/auth";
 
 import { Header, TableComponent } from "../components";
@@ -29,6 +29,8 @@ const DailyDiet: React.FC = () => {
   const [ingredientList, setIngredientList] = useState<DataType[]>();
   const [mealId, setMealId] = useState<number>(0);
   const [totalCalories, setTotalCalories] = useState<number>(0);
+
+  const { t } = useTranslation('', { useSuspense: false });
 
   const { currentUser } = useAuth();
 
@@ -76,17 +78,17 @@ const DailyDiet: React.FC = () => {
   const items: TabsProps["items"] = [
     {
       key: "breakfast",
-      label: 'Breakfast',
+      label: t('Breakfast'),
       children: <TableComponent mealId={mealId} tableData={ingredientList} setCalories={setTotalCalories} />,
     },
     {
       key: "lunch",
-      label: 'Lunch',
+      label: t('Lunch'),
       children: <TableComponent mealId={mealId} tableData={ingredientList} setCalories={setTotalCalories} />,
     },
     {
       key: "dinner",
-      label: 'Dinner',
+      label: t('Dinner'),
       children: <TableComponent mealId={mealId} tableData={ingredientList} setCalories={setTotalCalories} />,
     },
   ];
@@ -94,17 +96,17 @@ const DailyDiet: React.FC = () => {
   return (
     <div style={{maxWidth: '1440px', margin: 'auto'}}>
       <Head>
-        <title>Today&apos;s menu</title>
+        <title>{t("Daily diet")}</title>
       </Head>
       <div className="daily-diet-header">
-        <Header text={`Today's menu`} />
+        <Header text={t("Today's menu")} />
         <div className="daily-diet-header-calories">
-          <p className="daily-diet-header-calories-target"><b>Target calories:</b> 400-500</p>
+          <p className="daily-diet-header-calories-target"><b>{t('Target calories')}:</b> 400-500</p>
           <p className={classnames("daily-diet-header-calories-sum",
             {"warning": totalCalories > 500},
             {"good": totalCalories > 400 && totalCalories < 500})}
           >
-            <b>Temporary calories sum:</b> {totalCalories}
+            <b>{t('Temporary calories sum')}:</b> {totalCalories}
           </p>
         </div>
       </div>
