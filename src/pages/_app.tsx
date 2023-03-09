@@ -18,7 +18,7 @@ import {
 import { getKeyByValue } from "@/components/utils";
 
 // import i18n (needs to be bundled ;)) 
-import './i18n';
+import '../../i18n';
 
 const { Content, Footer, Sider } = Layout;
 
