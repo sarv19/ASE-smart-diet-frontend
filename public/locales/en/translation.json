@@ -36,5 +36,21 @@
     "Go back": "Go back",
     "Your diet": "Your diet",
     "Min Value": "Min Value",
-    "Max Value": "Max Value"
+    "Max Value": "Max Value",
+    "Settings": "Settings",
+    "Account": "Account",
+    "Food Preferences": "Food Preferences",
+    "Diet": "Diet",
+    "Name": "Name",
+    "Email": "Email",
+    "Gender": "Gender",
+    "Address": "Address",
+    "Prefered Ingredients": "Preferred Ingredients",
+    "Unwanted Ingredients": "Unwanted Ingredients",
+    "Allergens": "Allergens",
+    "Callories": "Calories",
+    "Protein": "Protein",
+    "Carbohydrates": "Carbohydrates",
+    "Fat": "Fat",
+    "Minerals": "Minerals"
 }

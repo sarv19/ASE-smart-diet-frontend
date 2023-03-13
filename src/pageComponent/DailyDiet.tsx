@@ -99,6 +99,7 @@ const DailyDiet: React.FC = () => {
         <title>{t("Daily diet")}</title>
       </Head>
       <div className="daily-diet-header">
+        {/* Causing hydration */}
         <Header text={t("Today's menu")} />
         <div className="daily-diet-header-calories">
           <p className="daily-diet-header-calories-target"><b>{t('Target calories')}:</b> 400-500</p>

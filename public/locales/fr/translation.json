@@ -36,5 +36,21 @@
     "Go back": "Retourner",
     "Your diet": "Votre régime",
     "Min Value": "Valeur minimale",
-    "Max Value": "Valeur maximale"
+    "Max Value": "Valeur maximale",
+    "Settings": "Paramètres",
+    "Account": "Compte",
+    "Food Preferences": "Préférences alimentaires",
+    "Diet": "Régime",
+    "Email": "Email",
+    "Name": "Nom",
+    "Gender": "Genre",
+    "Address": "Adresse",
+    "Prefered Ingredients": "Ingrédients préférés",
+    "Unwanted Ingredients": "Ingrédients indésirables",
+    "Allergens": "Allergènes",
+    "Protein (mg)": "Protéine (mg)",
+    "Carbohydrates (mg)": "Glucides (mg)",
+    "Fat (mg)": "Graisse (mg)",
+    "Minerals (mg)": "Minéraux (mg)"
+
 }
