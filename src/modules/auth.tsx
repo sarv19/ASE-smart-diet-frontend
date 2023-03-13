@@ -6,7 +6,7 @@ import {
   User,
   signOut as firebaseSignOut,
 } from "firebase/auth";
-import { getFirestore, doc, setDoc, Firestore } from "firebase/firestore";
+import { getFirestore, doc, Firestore, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 
 import getFirebase from "@/shared/getFirebase";
@@ -24,7 +24,7 @@ const INITIAL_CONTEXT: UserContext = {
 };
 
 async function storeUserInFirestore(db: Firestore, user: User) {
-  await setDoc(doc(db, "users", user.uid), {
+  await updateDoc(doc(db, "users", user.uid), {
     emailVerified: user.emailVerified,
     photoUrl: user.photoURL,
     displayName: user.displayName,
