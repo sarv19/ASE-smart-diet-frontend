@@ -24,7 +24,7 @@ const HomePage = () => {
             <button>{t('See my diet')}</button>
           </Link>
           <Link href={'/summary'} className="homepage-content-btn">
-            <button>{t('Progess summary')}</button>
+            <button>{t('Progress summary')}</button>
           </Link>
         </div>
       </div>
