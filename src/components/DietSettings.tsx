@@ -1,4 +1,4 @@
-import { Button, Form, Slider } from 'antd';
+import { Button, Form, InputNumber, Slider, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 const DietSettings = () => {
@@ -25,60 +25,65 @@ const DietSettings = () => {
       >
         <Form.Item
           label={<div>{t('Calories')}</div>}
-          name="calories"
         >
-          <Slider
-          min={0}
-          step={10}
-          max={2000}
-          range
-        />
+          <Space>
+            <Form.Item noStyle name="minCal">
+              <InputNumber style={{ width: '100%' }}/>
+            </Form.Item>
+            <Form.Item noStyle name="maxCal">
+              <InputNumber style={{ width: '100%' }} />
+            </Form.Item>
+          </Space>
         </Form.Item>
         <Form.Item
           label={<div>{t('Protein (mg)')}</div>}
-          name="unwantedIngredients"
         >
-          <Slider
-          min={0}
-          step={10}
-          max={2000}
-          range
-          />
+          <Space>
+            <Form.Item noStyle name="minProtein">
+              <InputNumber style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item noStyle name="maxProtein">
+              <InputNumber style={{ width: '100%' }} />
+            </Form.Item>
+          </Space>
         </Form.Item>
         <Form.Item
           label={<div>{t('Carbohydrates (mg)')}</div>}
-          name="carbohydrates"
         >
-          <Slider
-          min={0}
-          step={10}
-          max={2000}
-          range
-          />
+          <Space>
+            <Form.Item noStyle name="minCarb">
+              <InputNumber style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item noStyle name="maxCarb">
+              <InputNumber style={{ width: '100%' }} />
+            </Form.Item>
+          </Space>
         </Form.Item>
 
         <Form.Item
           label={<div>{t('Fat (mg)')}</div>}
-          name="fat"
         >
-          <Slider
-          min={0}
-          step={10}
-          max={2000}
-          range
-          />
+          <Space>
+            <Form.Item noStyle name="minFat">
+              <InputNumber style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item noStyle name="maxFat">
+              <InputNumber style={{ width: '100%' }} />
+            </Form.Item>
+          </Space>
         </Form.Item>
 
         <Form.Item
           label={<div>{t('Minerals (mg)')}</div>}
-          name="minerals"
         >
-          <Slider
-          min={0}
-          step={10}
-          max={2000}
-          range
-          />
+          <Space>
+            <Form.Item noStyle name="minMinerals">
+              <InputNumber style={{ width: '100%' }} />
+            </Form.Item>
+            <Form.Item noStyle name="maxMinerals">
+              <InputNumber style={{ width: '100%' }} />
+            </Form.Item>
+          </Space>
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 5, span: 16 }}>
