@@ -5,7 +5,11 @@ import React, { useEffect, useState } from "react";
 import { MenuProps, Switch, Tooltip } from "antd";
 import { Layout, Menu, theme, ConfigProvider } from "antd";
 import { BarsOutlined } from "@ant-design/icons";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import { AuthContext, useAuth } from "@/modules/auth";
+import { getKeyByValue } from "@/components/utils";
+
 import { PAGES } from "../constants";
 import { useTranslation } from "react-i18next";
 import {
@@ -15,7 +19,6 @@ import {
   ReportIcon,
   SettingIcon,
 } from "../pageComponent/Icons";
-import { getKeyByValue } from "@/components/utils";
 
 // import i18n (needs to be bundled ;))
 import "../../i18n";
@@ -38,6 +41,8 @@ export default function App({ Component, pageProps }: AppProps) {
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+
+  const queryClient = new QueryClient();
 
   const { signIn, authState, signOut } = useAuth();
 
@@ -66,107 +71,110 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [currentLng, i18n.language]);
 
   return (
-    <AuthContext>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: "#960018",
-            colorBgLayout: "#fff",
-          },
-          components: {},
-        }}
-      >
-        <Layout hasSider style={{ height: "100vh" }}>
-          <ConfigProvider
-            theme={{
-              token: {
-                controlItemBgActive: "#700012",
-                colorBgContainer: "#960018",
-                colorPrimary: "#fff",
-                colorText: "#fff",
-              },
-              components: {},
-            }}
-          >
-            <div ref={sideBarRef} className="sider-container">
-              <Sider
-                className="baselayout-sider"
-                collapsed
-                breakpoint="sm"
-                style={{
-                  overflow: "auto",
-                  left: 0,
-                  top: 0,
-                  bottom: 0,
-                }}
-              >
-                <Menu
-                  mode="inline"
-                  selectedKeys={[
-                    getKeyByValue(PAGES, router.pathname) ||
-                      Object.keys(PAGES)[0],
-                  ]}
-                  items={items}
-                  onClick={handleClick}
-                />
-                <div className="functional-btns">
-                  <div className="functional-btns-lang">
-                    <ConfigProvider
-                      theme={{
-                        token: {
-                          colorPrimary: "#00967E",
-                          colorBgLayout: "#fff",
-                        },
-                        components: {},
-                      }}
+    <QueryClientProvider client={queryClient}>
+      <AuthContext>
+        <ConfigProvider
+          theme={{
+            token: {
+              colorPrimary: "#960018",
+              colorBgLayout: "#fff",
+            },
+            components: {},
+          }}
+        >
+          <Layout hasSider style={{ height: "100vh" }}>
+            <ConfigProvider
+              theme={{
+                token: {
+                  controlItemBgActive: "#700012",
+                  colorBgContainer: "#960018",
+                  colorPrimary: "#fff",
+                  colorText: "#fff",
+                },
+                components: {},
+              }}
+            >
+              <div ref={sideBarRef} className="sider-container">
+                <Sider
+                  className="baselayout-sider"
+                  collapsed
+                  breakpoint="sm"
+                  style={{
+                    overflow: "auto",
+                    left: 0,
+                    top: 0,
+                    bottom: 0,
+                  }}
+                >
+                  <Menu
+                    mode="inline"
+                    selectedKeys={[
+                      getKeyByValue(PAGES, router.pathname) ||
+                        Object.keys(PAGES)[0],
+                    ]}
+                    items={items}
+                    onClick={handleClick}
+                  />
+                  <div className="functional-btns">
+                    <div className="functional-btns-lang">
+                      <ConfigProvider
+                        theme={{
+                          token: {
+                            colorPrimary: "#00967E",
+                            colorBgLayout: "#fff",
+                          },
+                          components: {},
+                        }}
+                      >
+                        {i18n.isInitialized &&
+                          typeof window !== "undefined" && (
+                            <Switch
+                              checkedChildren="EN"
+                              unCheckedChildren="FR"
+                              checked={i18n.language === "en-CA"}
+                              onChange={handleChangeLanguage}
+                            />
+                          )}
+                      </ConfigProvider>
+                    </div>
+                    <Tooltip
+                      placement="right"
+                      title={"Log out"}
+                      className="logout-btn"
                     >
-                      {i18n.isInitialized && typeof window !== "undefined" && (
-                        <Switch
-                          checkedChildren="EN"
-                          unCheckedChildren="FR"
-                          checked={i18n.language === "en-CA"}
-                          onChange={handleChangeLanguage}
+                      <button
+                        onClick={authState === "signedOut" ? signIn : signOut}
+                      >
+                        <img
+                          src="https://img.icons8.com/ios/50/FFFFFF/logout-rounded-left.png"
+                          alt="logout-btn"
                         />
-                      )}
-                    </ConfigProvider>
+                      </button>
+                    </Tooltip>
                   </div>
-                  <Tooltip
-                    placement="right"
-                    title={"Log out"}
-                    className="logout-btn"
-                  >
-                    <button
-                      onClick={authState === "signedOut" ? signIn : signOut}
-                    >
-                      <img
-                        src="https://img.icons8.com/ios/50/FFFFFF/logout-rounded-left.png"
-                        alt="logout-btn"
-                      />
-                    </button>
-                  </Tooltip>
-                </div>
-              </Sider>
-              <button
-                className="sider-container-button"
-                onClick={handleSideBarControl}
-              >
-                <BarsOutlined className="sider-container-button-icon" />
-              </button>
-            </div>
-          </ConfigProvider>
-          <Layout
-            className="site-layout"
-            style={{
-              overflow: "auto",
-            }}
-          >
-            <Content style={{}}>
-              <Component {...pageProps} />
-            </Content>
-            {/* <Footer>Smart Diet ©2023 Created by Team 42</Footer> */}
+                </Sider>
+                <button
+                  className="sider-container-button"
+                  onClick={handleSideBarControl}
+                >
+                  <BarsOutlined className="sider-container-button-icon" />
+                </button>
+              </div>
+            </ConfigProvider>
+            <Layout
+              className="site-layout"
+              style={{
+                overflow: "auto",
+              }}
+            >
+              <Content style={{}}>
+                <Component {...pageProps} />
+              </Content>
+              {/* <Footer>Smart Diet ©2023 Created by Team 42</Footer> */}
+            </Layout>
           </Layout>
-        </Layout>
-      </ConfigProvider>
-    </AuthContext>
+        </ConfigProvider>
+      </AuthContext>
+    </QueryClientProvider>
   );
 }

@@ -1,10 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
 import httpStatus from "http-status";
 
-import { BACKEND_BASE_URL } from "@/constants";
 import { getFirebaseApp } from "@/api/shared/firebaseApp";
-import { verifyIdToken } from "@/api/shared/auth";
+import { registerUserWithBackend, verifyIdToken } from "@/api/shared/auth";
 
 export default async function handler(
   req: NextApiRequest,
@@ -17,20 +15,9 @@ export default async function handler(
       req.headers.authorization || ""
     );
 
-    const response = await axios.post(
-      `${BACKEND_BASE_URL}/sd/meal/queryAMeal`,
-      req.body,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: uid,
-        },
-      }
-    );
-    const data = response.data;
+    await registerUserWithBackend(uid, email!);
 
-    return res.status(httpStatus.OK).json(data);
+    return res.status(httpStatus.NO_CONTENT).end();
   }
   return res
     .status(httpStatus.NOT_FOUND)

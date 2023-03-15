@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import axios from "axios";
 import {
   getAuth,
   GoogleAuthProvider,
@@ -31,6 +32,14 @@ async function storeUserInFirestore(db: Firestore, user: User) {
   });
 }
 
+async function registerUserWithBE(user: User) {
+  await axios.post(
+    "/api/register",
+    {},
+    { headers: { Authorization: await user.getIdToken() } }
+  );
+}
+
 const Context = createContext<UserContext>(INITIAL_CONTEXT);
 
 export function AuthContext({ children }: React.PropsWithChildren) {
@@ -45,6 +54,7 @@ export function AuthContext({ children }: React.PropsWithChildren) {
       async (user) => {
         if (user) {
           await storeUserInFirestore(db, user);
+          await registerUserWithBE(user);
           setAuthContext({ currentUser: user, authState: "signedIn" });
         } else {
           setAuthContext({ authState: "signedOut", currentUser: null });
