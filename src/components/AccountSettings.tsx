@@ -1,41 +1,36 @@
-import { useEffect, useState } from "react";
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, Spin } from "antd";
 import { useTranslation } from "react-i18next";
-import { getFirestore, doc, updateDoc, getDoc } from "firebase/firestore";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import { useAuth } from "@/modules/auth";
-import getFirebase from "@/shared/getFirebase";
-import { useRouter } from "next/router";
+import * as settings from "@/modules/settings/basic/actions";
 
 const AccountSettings = () => {
-  const app = getFirebase();
-  const db = getFirestore(app);
-  const [userInfo, setUserInfo] = useState<Record<string, string>>({});
-  const router = useRouter();
-
   const { t } = useTranslation("", { useSuspense: false });
+
   const { currentUser } = useAuth();
-  const onFinish = async (values: any) => {
-    const col = doc(db, "users", currentUser?.uid || "");
-    Object.keys(values).forEach((key) => {
-      if (values[key] === undefined) values[key] = null;
-    });
-    await updateDoc(col, values);
-    router.reload();
-  };
+
+  const { data, isLoading } = useQuery({
+    queryFn: () => settings.get(currentUser?.uid || ""),
+    queryKey: [settings.get.key, currentUser?.uid],
+    enabled: !!currentUser,
+  });
+  const { mutate } = useMutation({
+    mutationFn: (values) => settings.put(currentUser?.uid || "", values),
+  });
+
+  const onFinish = async (values: any) => mutate(values);
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
 
-  useEffect(() => {
-    const getUserSettings = async () => {
-      const col = doc(db, "users", currentUser?.uid || "");
-      const userInfo = (await getDoc(col)).data();
-      setUserInfo(userInfo as any);
-    };
-    currentUser?.uid && getUserSettings();
-  }, [currentUser?.uid, db]);
+  if (isLoading)
+    return (
+      <div className="account-setting">
+        <Spin />
+      </div>
+    );
 
   return (
     <div className="account-setting">
@@ -43,7 +38,7 @@ const AccountSettings = () => {
         name="basic"
         labelCol={{ span: 4 }}
         style={{ width: "100%" }}
-        initialValues={{ remember: true }}
+        initialValues={data}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
@@ -53,16 +48,16 @@ const AccountSettings = () => {
           name="email"
           rules={[{ required: true, message: "Please input your email!" }]}
         >
-          <Input placeholder={userInfo.email} />
+          <Input />
         </Form.Item>
         <Form.Item label={<div>{t("Name")}</div>} name="name">
-          <Input placeholder={userInfo.name} />
+          <Input />
         </Form.Item>
         <Form.Item label={<div>{t("Gender")}</div>} name="gender">
-          <Input placeholder={userInfo.gender} />
+          <Input />
         </Form.Item>
         <Form.Item label={<div>{t("Address")}</div>} name="address">
-          <Input placeholder={userInfo.address} />
+          <Input />
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 4, span: 16 }}>

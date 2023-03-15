@@ -6,7 +6,7 @@ export type PutDietArgs = {
   targetCaloriesMax: number;
 };
 
-export async function putDiet(args: PutDietArgs, user: User) {
+export async function putCalories(args: PutDietArgs, user: User) {
   const response = await axios.put("/api/settings/diet", args, {
     headers: {
       "Content-Type": "application/json",
@@ -18,7 +18,7 @@ export async function putDiet(args: PutDietArgs, user: User) {
   return data;
 }
 
-export async function getDiet(userIdToken: string) {
+export async function getCalories(userIdToken: string) {
   const response = await axios.get("/api/settings/diet", {
     headers: {
       "Content-Type": "application/json",
@@ -30,4 +30,4 @@ export async function getDiet(userIdToken: string) {
   return data;
 }
 
-getDiet.key = "/modules/settings/actions/getDiet";
+getCalories.key = "/modules/settings/diet/actions/getCalories";

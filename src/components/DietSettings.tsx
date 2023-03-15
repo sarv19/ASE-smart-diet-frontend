@@ -2,7 +2,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import { Button, Form, InputNumber, Space, Spin } from "antd";
 import { useTranslation } from "react-i18next";
 
-import * as settings from "@/modules/settings/actions";
+import * as settings from "@/modules/settings/diet/actions";
 import { useAuth } from "@/modules/auth";
 
 const DietSettings = () => {
@@ -16,14 +16,14 @@ const DietSettings = () => {
     unknown
   >({
     mutationFn: async (data) => {
-      currentUser && settings.putDiet(data, currentUser);
+      currentUser && settings.putCalories(data, currentUser);
     },
   });
 
   const { data, isLoading } = useQuery({
     queryFn: async () =>
-      settings.getDiet(currentUser ? await currentUser.getIdToken() : ""),
-    queryKey: [settings.getDiet.key, currentUser?.uid],
+      settings.getCalories(currentUser ? await currentUser.getIdToken() : ""),
+    queryKey: [settings.getCalories.key, currentUser?.uid],
     enabled: !!currentUser,
   });
 
