@@ -1,100 +1,94 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Tabs, TabsProps } from "antd";
-import classnames from 'classnames'
-import { useTranslation } from 'react-i18next';
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Spin, Tabs, TabsProps } from "antd";
+import classnames from "classnames";
+import { useTranslation } from "react-i18next";
+import Head from "next/head";
+
 import { useAuth } from "@/modules/auth";
+import * as dailyDiet from "@/modules/dailyDiet/actions";
 
 import { Header, TableComponent } from "../components";
 import data from "../data/data.json";
-import Head from "next/head";
-
-interface DataType {
-  ingredientId: React.Key;
-  ingredientName: string;
-  calories: number;
-  quantity: number;
-  weight: number;
-  substitute?: DataType[];
-}
-
-type GetMealPlanResponse = {
-  userId: number;
-  pageNum: number;
-  pageSize: number;
-  mealType: string;
-  mealId?: number;
-};
 
 const DailyDiet: React.FC = () => {
-  const [ingredientList, setIngredientList] = useState<DataType[]>();
-  const [mealId, setMealId] = useState<number>(0);
   const [totalCalories, setTotalCalories] = useState<number>(0);
 
-  const { t } = useTranslation('', { useSuspense: false });
+  const { t } = useTranslation("", { useSuspense: false });
 
   const { currentUser } = useAuth();
 
-  const fetchIngredients = useCallback(
-    async (mealType: string) => {
-      const requestData: GetMealPlanResponse = {
-        userId: 2023021021401001,
-        mealType: `${mealType}`,
-        pageNum: 1,
-        pageSize: 10,
-      };
-      try {
-        const response = await fetch("/api/daily-diet", {
-          method: "POST",
-          body: JSON.stringify(requestData),
-          headers: {
-            Authorization: await currentUser!.getIdToken(),
-          },
-        });
-        const data = await response.json();
-        const ingredients = data.data.data.list;
+  const { data: dataBreakfast, isLoading: isLoadingBreakfast } = useQuery({
+    queryFn: async () =>
+      dailyDiet.get("breakfast", (await currentUser?.getIdToken()) || ""),
+    queryKey: [dailyDiet.get.key, "breakfast", currentUser?.uid],
+    enabled: !!currentUser,
+  });
+  const { data: dataLunch, isLoading: isLoadingLunch } = useQuery({
+    queryFn: async () =>
+      dailyDiet.get("lunch", (await currentUser?.getIdToken()) || ""),
+    queryKey: [dailyDiet.get.key, "lunch", currentUser?.uid],
+    enabled: !!currentUser,
+  });
+  const { data: dataDinner, isLoading: isLoadingDinner } = useQuery({
+    queryFn: async () =>
+      dailyDiet.get("dinner", (await currentUser?.getIdToken()) || ""),
+    queryKey: [dailyDiet.get.key, "dinner", currentUser?.uid],
+    enabled: !!currentUser,
+  });
 
-        setMealId(data.data.mealId);
-        setIngredientList(ingredients);
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    [currentUser]
-  );
-
-  useEffect(() => {
-    currentUser && fetchIngredients('breakfast');
-  }, [currentUser, fetchIngredients]);
-
-  // const tableData: DataType[] = [...data.result];
-  // useEffect(() => {
-  //   setIngredientList(tableData);
-  // }, [])
-
-  const onChange = (key: string) => {
-    fetchIngredients(key);
-  };
+  if (
+    isLoadingBreakfast ||
+    isLoadingLunch ||
+    isLoadingDinner ||
+    !dataLunch ||
+    !dataBreakfast ||
+    !dataDinner
+  )
+    return (
+      <div className="account-setting">
+        <Spin />
+      </div>
+    );
 
   const items: TabsProps["items"] = [
     {
       key: "breakfast",
-      label: t('Breakfast'),
-      children: <TableComponent mealId={mealId} tableData={ingredientList} setCalories={setTotalCalories} />,
+      label: t("Breakfast"),
+      children: (
+        <TableComponent
+          mealId={dataBreakfast.mealId}
+          tableData={dataBreakfast.ingredients}
+          setCalories={setTotalCalories}
+        />
+      ),
     },
     {
       key: "lunch",
-      label: t('Lunch'),
-      children: <TableComponent mealId={mealId} tableData={ingredientList} setCalories={setTotalCalories} />,
+      label: t("Lunch"),
+      children: (
+        <TableComponent
+          mealId={dataLunch.mealId}
+          tableData={dataLunch.ingredients}
+          setCalories={setTotalCalories}
+        />
+      ),
     },
     {
       key: "dinner",
-      label: t('Dinner'),
-      children: <TableComponent mealId={mealId} tableData={ingredientList} setCalories={setTotalCalories} />,
+      label: t("Dinner"),
+      children: (
+        <TableComponent
+          mealId={dataDinner.mealId}
+          tableData={dataDinner.ingredients}
+          setCalories={setTotalCalories}
+        />
+      ),
     },
   ];
 
   return (
-    <div style={{maxWidth: '1440px', margin: 'auto'}}>
+    <div style={{ maxWidth: "1440px", margin: "auto" }}>
       <Head>
         <title>{t("Daily diet")}</title>
       </Head>
@@ -102,16 +96,21 @@ const DailyDiet: React.FC = () => {
         {/* Causing hydration */}
         <Header text={t("Today's menu")} />
         <div className="daily-diet-header-calories">
-          <p className="daily-diet-header-calories-target"><b>{t('Target calories')}:</b> 400-500</p>
-          <p className={classnames("daily-diet-header-calories-sum",
-            {"warning": totalCalories > 500},
-            {"good": totalCalories > 400 && totalCalories < 500})}
+          <p className="daily-diet-header-calories-target">
+            <b>{t("Target calories")}:</b> 400-500
+          </p>
+          <p
+            className={classnames(
+              "daily-diet-header-calories-sum",
+              { warning: totalCalories > 500 },
+              { good: totalCalories > 400 && totalCalories < 500 }
+            )}
           >
-            <b>{t('Temporary calories sum')}:</b> {totalCalories}
+            <b>{t("Temporary calories sum")}:</b> {totalCalories}
           </p>
         </div>
       </div>
-      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+      <Tabs defaultActiveKey="1" items={items} />
     </div>
   );
 };
