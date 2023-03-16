@@ -24,6 +24,7 @@ const FoodPreferences = () => {
       <Form
         name="basic"
         labelCol={{ span: 5 }}
+        labelWrap
         style={{ width: '100%' }}
         initialValues={{ remember: true }}
         onFinish={onFinish}
