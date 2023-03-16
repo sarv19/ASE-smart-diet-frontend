@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { TableComponentProps } from "./TableComponent";
+import { capitalizeFirstLetter } from "./utils";
 
 type SubTableProps = {
   tableData: any,
@@ -29,7 +30,7 @@ const Substitution = ({ tableData, result, setResult } : SubTableProps ) => {
       <div className={'table-body'}>
         <div className="table-body-title-big table-body-margin-left-checkbox">
           <input type="checkbox" onChange={handleCheck} checked={ischecked} className={'table-checkbox'}></input>
-          <div className={'name'}>{ingredientName}</div>
+          <div className={'name'}>{capitalizeFirstLetter(ingredientName)}</div>
         </div>
         <div className={'table-body-title-small'}>{calories}</div>
         <div className={'table-body-title-small'}>{weight}</div>

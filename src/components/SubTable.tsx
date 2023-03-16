@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import useWindowDimensions from "./hooks/useWindowDimensions";
 import Substitution from "./Substitution";
+import { capitalizeFirstLetter } from "./utils";
 
 type SubTableProps = {
   tableData: any;
@@ -87,7 +88,7 @@ const SubTable = ({
           checked={ischecked}
           className={"table-checkbox"}
         ></input>
-        <div className={"table-body-title-big name"} onClick={handleOpen}>{ingredientName}</div>
+        <div className={"table-body-title-big name"} onClick={handleOpen}>{capitalizeFirstLetter(ingredientName)}</div>
         <div className={"table-body-title-small"} onClick={handleOpen}>{calories}</div>
         <div className={"table-body-title-small"} onClick={handleOpen}>{weight}</div>
         <button

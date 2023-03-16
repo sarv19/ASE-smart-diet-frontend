@@ -52,8 +52,8 @@ const TableComponent = (props: TableComponentProps) => {
       <div className="table-header">
         <input type="checkbox" onChange={ handleSelectAll } checked={ isSelectAll } className={ 'table-header-checkbox' }></input>
         <div className={'table-header-title-big'}>{t('Ingredient')}</div>
-        <div className={'table-header-title-small'}>{t('Calories')}</div>
-        <div className={'table-header-title-small'}>{t('Weight')}</div>
+        <div className={'table-header-title-small'}>{t('Calories')} (kcals)</div>
+        <div className={'table-header-title-small'}>{t('Weight')} (gr)</div>
         <div className={'table-header-title-small'}>{t('Subtitution')}</div>
       </div>
     )
