@@ -1,3 +1,8 @@
+import { useQuery } from "@tanstack/react-query";
+import { Spin } from "antd";
+
+import * as recipe from "@/modules/recipe/actions";
+
 import { CloseIcon } from "./Icons";
 import RecipeTile from "./RecipeTile";
 
@@ -53,8 +58,18 @@ const mockRecipes = [
 ];
 
 const Recipes = ({ closeModal, content }: Props) => {
-  // TODO: Make an algolia search here with the provided contents
-  console.log("🚀 ~ file: Recipes.tsx:56 ~ Recipes ~ content:", content);
+  const { calories: targetCalories } = content;
+
+  const filters: string = `calories: ${
+    targetCalories - 50
+  } TO ${targetCalories}`;
+
+  const { data, isLoading } = useQuery({
+    queryFn: () => recipe.get({ filters }),
+    queryKey: [recipe.get.key, filters],
+  });
+
+  if (!data || isLoading) return <Spin />;
 
   return (
     <div className="recipes">
@@ -69,7 +84,7 @@ const Recipes = ({ closeModal, content }: Props) => {
           Using your list of chosen ingredients
         </div>
         <div className="recipes-list">
-          {mockRecipes.map((recipe: any, index: any) => (
+          {data.map((recipe: any, index: any) => (
             <RecipeTile key={index} recipe={recipe} />
           ))}
         </div>
