@@ -37,8 +37,12 @@ const AccountSettings = () => {
       <Form
         name="basic"
         labelCol={{ span: 4 }}
+        labelWrap
         style={{ width: "100%" }}
-        initialValues={data}
+        initialValues={{
+          ...data,
+          email: currentUser?.email
+        }}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
@@ -48,7 +52,7 @@ const AccountSettings = () => {
           name="email"
           rules={[{ required: true, message: "Please input your email!" }]}
         >
-          <Input />
+          <Input disabled/>
         </Form.Item>
         <Form.Item label={<div>{t("Name")}</div>} name="name">
           <Input />
