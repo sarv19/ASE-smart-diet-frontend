@@ -16,7 +16,7 @@ const Diet = () => {
         </Head>
         <Header text={t('Your diet')}/>
         <div className="diet-content">
-          <div className="diet-content-edit">{t('Edit your diet')} <Link href={"/settings"}>{t('here')}</Link></div>
+          <div className="diet-content-edit">{t('Edit your diet')} <Link href={{ pathname: '/settings', query: { tab: 'diet' } }}>{t('here')}</Link></div>
           <div className="diet-content-or">{t('or')}</div>
           <div className="diet-content-edit">{t('Create a new one below')}:</div>
           <DietForm />

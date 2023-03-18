@@ -38,7 +38,6 @@ const AccountSettings = () => {
         name="basic"
         labelCol={{ span: 4 }}
         labelWrap
-        style={{ width: "100%" }}
         initialValues={{
           ...data,
           email: currentUser?.email

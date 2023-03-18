@@ -3,9 +3,11 @@ import { useTranslation } from 'react-i18next';
 import Head from "next/head";
 import { Suspense } from "react";
 import { AccountSettings, DietSettings, FoodPreferences, Header } from "../components";
+import { useRouter } from "next/router";
 
 const Setting = () => {
   const { t } = useTranslation('', { useSuspense: false });
+  const router = useRouter();
   const items: TabsProps["items"] = [
     {
       key: "account",
@@ -34,7 +36,7 @@ const Setting = () => {
           {/* Causing hydration */}
           <Header text={t("Diet")} />
         </div>
-        <Tabs defaultActiveKey="1" items={items} onChange={() =>{}} />
+        <Tabs defaultActiveKey={router?.query?.tab == 'diet'? 'diet' : 'account'} items={items} onChange={() =>{}} />
       </div>
     </Suspense>
   )

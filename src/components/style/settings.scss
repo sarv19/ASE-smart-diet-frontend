@@ -1,0 +1,7 @@
+.account-setting, .food-pref-setting {
+    padding-right: 5%;
+
+    @media (min-width: 768px) {
+        padding-right: 10%;
+    }
+}

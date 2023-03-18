@@ -41,7 +41,9 @@ const DietSettings = () => {
   return (
     <div>
       {isLoading ? (
-        <Spin />
+        <div className="page-spinner">
+          <Spin />
+        </div>
       ) : (
         <Form
           name="basic"
@@ -56,12 +58,12 @@ const DietSettings = () => {
           onFinishFailed={onFinishFailed}
           autoComplete="off"
         >
-          <Form.Item label={<div>{t("Calories")}</div>}>
+          <Form.Item label={<div>{t("Calories")}</div>} required>
             <Space>
-              <Form.Item noStyle name="minCal">
+              <Form.Item noStyle name="minCal" rules={[{ required: true, message: "Please input your calorie restrictions!" }]}>
                 <InputNumber style={{ width: "100%" }} />
               </Form.Item>
-              <Form.Item noStyle name="maxCal">
+              <Form.Item noStyle name="maxCal" rules={[{ required: true, message: "Please input your calorie restrictions!" }]}>
                 <InputNumber style={{ width: "100%" }} />
               </Form.Item>
             </Space>
