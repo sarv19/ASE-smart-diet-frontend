@@ -27,7 +27,7 @@ const AccountSettings = () => {
 
   if (isLoading)
     return (
-      <div className="account-setting">
+      <div className="page-spinner">
         <Spin />
       </div>
     );
