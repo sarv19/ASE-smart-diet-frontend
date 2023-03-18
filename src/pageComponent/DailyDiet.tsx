@@ -61,6 +61,7 @@ const DailyDiet: React.FC = () => {
           tableData={dataBreakfast.ingredients}
           setCalories={setTotalCalories}
           totalTargetCalories={dataBreakfast.totalTargetCalories}
+          mealDate={dataBreakfast.mealDate}
         />
       ),
     },
@@ -73,6 +74,7 @@ const DailyDiet: React.FC = () => {
           tableData={dataLunch.ingredients}
           setCalories={setTotalCalories}
           totalTargetCalories={dataLunch.totalTargetCalories}
+          mealDate={dataLunch.mealDate}
         />
       ),
     },
@@ -85,6 +87,7 @@ const DailyDiet: React.FC = () => {
           tableData={dataDinner.ingredients}
           setCalories={setTotalCalories}
           totalTargetCalories={dataDinner.totalTargetCalories}
+          mealDate={dataDinner.mealDate}
         />
       ),
     },

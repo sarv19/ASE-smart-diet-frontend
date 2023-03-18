@@ -11,16 +11,14 @@ export default async function handler(
     res: NextApiResponse<unknown>
 ) {
     const firebaseApp = getFirebaseApp();
-    console.log('inside There??', req.method)
     if (req.method === "POST") {
         const { uid, email } = await verifyIdToken(
             firebaseApp,
             req.headers.authorization || ""
         );
 
-        console.log('check: ', req.url)
         const response = await axios.post(
-            `${BACKEND_BASE_URL}/meal/confirmAMeal`,
+            `${BACKEND_BASE_URL}/sd/meal/confirmAMeal`,
             req.body,
             {
                 headers: {

@@ -23,7 +23,8 @@ export async function get(mealType: string, idToken: string) {
   const ingredients = data.data.data.list;
   const mealId = data.data.mealId;
   const totalTargetCalories = data.data.totalCalories;
-  return { ingredients, mealId, totalTargetCalories };
+  const mealDate = data.data.mealDate;
+  return { ingredients, mealId, totalTargetCalories, mealDate };
 }
 
 get.key = "/modules/dailyDiet/actions/get";

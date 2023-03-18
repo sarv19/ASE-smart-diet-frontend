@@ -6,6 +6,7 @@ import classNames from "classnames";
 import { useAuth } from "@/modules/auth";
 import { useMutation } from "@tanstack/react-query";
 import * as confirmAMeal from "@/modules/confirmAMeal/actions";
+import { capitalizeFirstLetter } from "./utils";
 
 interface TableProps {
   ingredientId: React.Key;
@@ -21,13 +22,15 @@ export type TableComponentProps = {
   mealId?: number;
   setCalories: any;
   totalTargetCalories: number;
+  mealDate: string;
 }
 
 const TableComponent = (props: TableComponentProps) => {
-  const { tableData, mealId, setCalories, totalTargetCalories } = props;
+  const { tableData, mealId, setCalories, totalTargetCalories, mealDate } = props;
   const [currentCalories, setCurrentCalories] = useState(0);
   const { t } = useTranslation('', { useSuspense: false });
   const { currentUser } = useAuth();
+  const [confirmedMeal, setConfirmedMeal] = useState(mealDate ? true : false);
 
   const [isSelectAll, setIsSelectAll] = useState(false);
   const [result, setResult] = useState<TableProps[] | undefined>([]);
@@ -53,18 +56,6 @@ const TableComponent = (props: TableComponentProps) => {
       setCurrentCalories(calories)
     }
   }, [result]);
-  
-  function TableHeader() {
-    return (
-      <div className="table-header">
-        <input type="checkbox" onChange={ handleSelectAll } checked={ isSelectAll } className={ 'table-header-checkbox' }></input>
-        <div className={'table-header-title-big'}>{t('Ingredient')}</div>
-        <div className={'table-header-title-small'}>{t('Calories')} (kcals)</div>
-        <div className={'table-header-title-small'}>{t('Weight')} (gr)</div>
-        <div className={'table-header-title-small'}>{t('Subtitution')}</div>
-      </div>
-    )
-  }
 
   const { mutate } = useMutation<
     unknown,
@@ -77,15 +68,58 @@ const TableComponent = (props: TableComponentProps) => {
     },
   });
 
-  function handleClick() {
+  function handleSubmit() {
     if (!result || result.length === 0) return;
     mutate({
       mealId: mealId || 0,
       ingredients: result
-    })
+    });
+    setConfirmedMeal(true);
+  }
+
+  function showSummary() {
+    return router.push('/summary');
+  }
+
+  function TableHeader() {
+    return (
+      <div className="table-header">
+        <input type="checkbox" onChange={ handleSelectAll } checked={ isSelectAll } className={ 'table-header-checkbox' }></input>
+        <div className={'table-header-title-big'}>{t('Ingredient')}</div>
+        <div className={'table-header-title-small'}>{t('Calories')} (kcals)</div>
+        <div className={'table-header-title-small'}>{t('Weight')} (gr)</div>
+        <div className={'table-header-title-small'}>{t('Subtitution')}</div>
+      </div>
+    )
+  }
+
+  function IngredientList(ingredients: TableProps, key: number) {
+    return (
+      <div className='ingredients-lists' key={key}>
+        <div className='ingredients-lists-name'>{ capitalizeFirstLetter(t(ingredients.ingredientName)) }</div>
+        <div className='ingredients-lists-weight'>{ ingredients.weight } gr</div>
+      </div>
+    )
   }
 
   if ( !tableData ) return <Error />
+
+  if (confirmedMeal) return (
+    <div className='ingredients'>
+      <div className='ingredients-title'>{ t('Ingredients')}</div>
+      { result && result?.map(( item: any, index: number ) =>
+          IngredientList(item, index) 
+        )
+      }
+      { tableData && tableData?.map(( item: any, index: number ) =>
+            IngredientList(item, index)
+        )
+      }
+      <div className={'done'}>
+          <button onClick={showSummary} className={'done-btn'}>{t('Show summary')}</button>
+        </div>
+    </div>
+  )
   return (
     <div>
       <div className="daily-diet-header-calories">
@@ -107,7 +141,7 @@ const TableComponent = (props: TableComponentProps) => {
         <SubTable key={index} mealId={mealId} tableData={item} isSelectAll={isSelectAll} result={result} setResult={setResult}/>)
       }
       <div className={'done'}>
-        <button onClick={handleClick} className={classNames('done-btn', {'disabled': (!result || result.length === 0)})}>{t('Done')}</button>
+        <button onClick={handleSubmit} className={classNames('done-btn', {'disabled': (!result || result.length === 0)})}>{t('Done')}</button>
       </div>
     </div>
   )
