@@ -60,6 +60,7 @@ const DailyDiet: React.FC = () => {
           mealId={dataBreakfast.mealId}
           tableData={dataBreakfast.ingredients}
           setCalories={setTotalCalories}
+          totalTargetCalories={dataBreakfast.totalTargetCalories}
         />
       ),
     },
@@ -71,6 +72,7 @@ const DailyDiet: React.FC = () => {
           mealId={dataLunch.mealId}
           tableData={dataLunch.ingredients}
           setCalories={setTotalCalories}
+          totalTargetCalories={dataLunch.totalTargetCalories}
         />
       ),
     },
@@ -82,6 +84,7 @@ const DailyDiet: React.FC = () => {
           mealId={dataDinner.mealId}
           tableData={dataDinner.ingredients}
           setCalories={setTotalCalories}
+          totalTargetCalories={dataDinner.totalTargetCalories}
         />
       ),
     },
@@ -95,20 +98,6 @@ const DailyDiet: React.FC = () => {
       <div className="daily-diet-header">
         {/* Causing hydration */}
         <Header text={t("Today's menu")} />
-        <div className="daily-diet-header-calories">
-          <p className="daily-diet-header-calories-target">
-            <b>{t("Target calories")}:</b> 400-500
-          </p>
-          <p
-            className={classnames(
-              "daily-diet-header-calories-sum",
-              { warning: totalCalories > 500 },
-              { good: totalCalories > 400 && totalCalories < 500 }
-            )}
-          >
-            <b>{t("Temporary calories sum")}:</b> {totalCalories}
-          </p>
-        </div>
       </div>
       <Tabs defaultActiveKey="1" items={items} />
     </div>

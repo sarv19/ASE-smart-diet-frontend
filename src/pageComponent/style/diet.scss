@@ -121,7 +121,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        padding: 30px 10px 0;
+        padding-bottom: 10px;
         text-align: right;
         
         p, b {
@@ -129,9 +129,7 @@
         }
         
         @media (min-width: 768px) {
-            padding: 0 30px;
             justify-content: end;
-            margin-bottom: -32px;
         }
 
         .warning {

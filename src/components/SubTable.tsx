@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import useWindowDimensions from "./hooks/useWindowDimensions";
 import Substitution from "./Substitution";
 import { capitalizeFirstLetter } from "./utils";
+import { useTranslation } from 'react-i18next';
 
 type SubTableProps = {
   tableData: any;
@@ -29,6 +30,7 @@ const SubTable = ({
   const [isOpen, setIsOpen] = useState(false);
   const [ischecked, setIsChecked] = useState(isSelectAll);
   const [subtitutions, setSubtitutions] = useState<any[]>([]);
+  const { t } = useTranslation('', { useSuspense: false });
 
   const { currentUser } = useAuth();
 
@@ -88,7 +90,7 @@ const SubTable = ({
           checked={ischecked}
           className={"table-checkbox"}
         ></input>
-        <div className={"table-body-title-big name"} onClick={handleOpen}>{capitalizeFirstLetter(ingredientName)}</div>
+        <div className={"table-body-title-big name"} onClick={handleOpen}>{capitalizeFirstLetter(t(ingredientName))}</div>
         <div className={"table-body-title-small"} onClick={handleOpen}>{calories}</div>
         <div className={"table-body-title-small"} onClick={handleOpen}>{weight}</div>
         <button

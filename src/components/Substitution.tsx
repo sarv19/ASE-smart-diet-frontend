@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { TableComponentProps } from "./TableComponent";
 import { capitalizeFirstLetter } from "./utils";
+import { useTranslation } from 'react-i18next';
 
 type SubTableProps = {
   tableData: any,
@@ -11,6 +11,7 @@ type SubTableProps = {
 const Substitution = ({ tableData, result, setResult } : SubTableProps ) => {
   const { ingredientName, calories, quantity, weight } = tableData;
   const [ischecked, setIsChecked] = useState(false);
+  const { t } = useTranslation('', { useSuspense: false });
 
   function handleCheck(event: React.ChangeEvent<HTMLInputElement>) {
     if (!ischecked) {
@@ -30,7 +31,7 @@ const Substitution = ({ tableData, result, setResult } : SubTableProps ) => {
       <div className={'table-body'}>
         <div className="table-body-title-big table-body-margin-left-checkbox">
           <input type="checkbox" onChange={handleCheck} checked={ischecked} className={'table-checkbox'}></input>
-          <div className={'name'}>{capitalizeFirstLetter(ingredientName)}</div>
+          <div className={'name'}>{capitalizeFirstLetter(t(ingredientName))}</div>
         </div>
         <div className={'table-body-title-small'}>{calories}</div>
         <div className={'table-body-title-small'}>{weight}</div>
