@@ -19,9 +19,9 @@ const ImageAndContent = (props: ImageAndContentProps) => {
   const mealDataNutrition = useMemo(() => {
     return {
       "Weight": mealData?.meal?.totalWeight,
-      "Protein (mg)": mealData?.meal?.totalProtein,
-      "Fat (mg)": mealData?.meal?.totalFat,
-      "Carbohydrates (mg)": mealData?.meal?.totalCarbohydrate,
+      "Protein": mealData?.meal?.totalProtein,
+      "Fat": mealData?.meal?.totalFat,
+      "Carbohydrates": mealData?.meal?.totalCarbohydrate,
     }
   }, [mealData]);
 
@@ -96,7 +96,7 @@ const ImageAndContent = (props: ImageAndContentProps) => {
                   Object.entries(mealDataNutrition)?.map((item, index) => {
                     return (
                       <li key={index}>{capitalizeFirstLetter(t(item[0]))}: {item[1]} {
-                        item[0] == "Protein" ? "gr" : "mg"
+                        (item[0] == "Weight" || item[0] == "Protein") ? "gr" : "mg"
                       }</li>
                     );
                   })}
