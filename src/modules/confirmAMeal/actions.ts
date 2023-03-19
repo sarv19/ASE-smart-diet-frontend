@@ -12,7 +12,6 @@ export type ConfirmAMealRequest = {
 }
 
 export async function post(args: ConfirmAMealRequest, idToken: string) {
-    console.log('run here??', idToken)
     const response = await fetch("/api/confirm-a-meal", {
         method: "POST",
         body: JSON.stringify(args),

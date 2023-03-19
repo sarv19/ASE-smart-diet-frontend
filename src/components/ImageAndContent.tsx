@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Modal from "react-modal";
 import classnames from "classnames";
 import Recipes from "./Recipes";
@@ -10,7 +10,17 @@ type ImageAndContentProps = {
   title?: string;
 };
 const ImageAndContent = (props: ImageAndContentProps) => {
-  const { image, content, reverse, title } = props;
+  const { image, content: mealData, reverse, title } = props;
+
+  const mealDataNutrition = useMemo(() => {
+    return {
+      weight: mealData?.meal?.totalWeight,
+      protein: mealData?.meal?.totalProtein,
+      fat: mealData?.meal?.totalFat,
+      carbohydrate: mealData?.meal?.totalCarbohydrate,
+      sodium: mealData?.meal?.totalSodium,
+    }
+  }, [mealData]);
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -57,23 +67,23 @@ const ImageAndContent = (props: ImageAndContentProps) => {
         style={customStyles}
         closeTimeoutMS={1000}
       >
-        <Recipes closeModal={closeModal} content={content} />
+        <Recipes closeModal={closeModal} content={mealData} />
       </Modal>
       <div className="image-and-content__image">
-        <img alt={content} src={image} />
+        <img alt={mealData} src={image} />
       </div>
       <div className="image-and-content__content">
         <div>
           <div className="image-and-content__content-title">{title}</div>
-          {content && Object.keys(content).length > 0 ? (
+          {mealData && Object.keys(mealData).length > 0 ? (
             <div>
               <div>
                 <span className="total">Total calories: </span>
-                {content.calories}
+                {mealData.meal.totalCalories}
               </div>
               <ul className="nutritient-list">
-                {content.nutrients &&
-                  Object.entries(content.nutrients)?.map((item, index) => {
+                {mealDataNutrition &&
+                  Object.entries(mealDataNutrition)?.map((item, index) => {
                     return (
                       <li key={index}>{`${item[0]}: ${item[1]} ${
                         item[0] == "Protein" ? "gr" : "mg"

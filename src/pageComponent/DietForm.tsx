@@ -31,7 +31,6 @@ const DietForm = () => {
     function handleSubmit(event: any) {
         event.preventDefault();
         if (window.confirm(alertMessage)) {
-            console.log('submited: ', values)
             return router.push('/settings');
         } else return;
     }
