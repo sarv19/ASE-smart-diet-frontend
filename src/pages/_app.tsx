@@ -23,7 +23,8 @@ import {
 // import i18n (needs to be bundled ;))
 import "../../i18n";
 
-const { Content, Sider } = Layout;
+
+const { Content, Footer, Sider } = Layout;
 
 const items: MenuProps["items"] = [
   HomeIcon,
@@ -48,6 +49,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const { t, i18n } = useTranslation("", { useSuspense: false });
   const [currentLng, setCurrentLang] = useState("en-CA");
+  const [toggleAds, setToggleAds] = useState(true);
 
   const sideBarRef = React.useRef<any>(null);
 
@@ -63,6 +65,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
   function handleChangeLanguage(checked: boolean) {
     i18n.changeLanguage(checked ? "en-CA" : "fr-FR");
+  }
+
+  function handleAds() {
+    setToggleAds(!toggleAds);
   }
 
   //TO DO: fix the logic to make the btn show the right language when the app 1st loads
@@ -170,7 +176,12 @@ export default function App({ Component, pageProps }: AppProps) {
               <Content style={{}}>
                 <Component {...pageProps} />
               </Content>
-              {/* <Footer>Smart Diet ©2023 Created by Team 42</Footer> */}
+              {toggleAds && 
+              <div style={{display: 'flex', justifyContent: 'center'}}>
+                <img style={{maxHeight: '100px', bottom: 0, position: 'fixed'}} onClick={handleAds} src="https://drdrew.com/wp-content/uploads/2016/10/ad-space-placeholder-728-x-90.png" alt="default ads" />
+              </div>
+              }
+              {/* <Footer></Footer> */}
             </Layout>
           </Layout>
         </ConfigProvider>
