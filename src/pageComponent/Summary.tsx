@@ -5,21 +5,7 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import * as summaryAction from "@/modules/summary/actions";
 import { useAuth } from "@/modules/auth";
-
-const mockData = {
-  breakfast: {
-    calories: 415,
-    nutrients: {
-      Protein: 100,
-      Fat: 10,
-      Carbohydrate: 15,
-      Vintamin: 5,
-    },
-  },
-  lunch: {},
-  dinner: {},
-};
-
+import { useMemo } from "react";
 
 const Summary = () => {
   const { t } = useTranslation("", { useSuspense: false });
@@ -32,6 +18,40 @@ const Summary = () => {
     enabled: !!currentUser,
   });
 
+  const calculateTargetCalories = useMemo(() => {
+    let calories = 0;
+    if (summaryData?.breakfast) {
+      calories += summaryData?.breakfast.meal.totalCalories;
+    }
+    if (summaryData?.lunch) {
+      calories += summaryData?.lunch.meal.totalCalories;
+    }
+    if (summaryData?.dinner) {
+      calories += summaryData?.dinner.meal.totalCalories;
+    }
+    return calories;
+  }, [summaryData]);
+
+  const getMealCalories = (meal: any) => {
+    return meal.ingredients?.reduce((acc: any, item: any) => {
+      return acc + item.calories;
+    }, 0);
+  };
+
+  const calculateCalories = useMemo(() => {
+    let calories = 0;
+    if (summaryData?.breakfast) {
+      calories += getMealCalories(summaryData?.breakfast);
+    }
+    if (summaryData?.lunch) {
+      calories += getMealCalories(summaryData?.lunch);
+    }
+    if (summaryData?.dinner) {
+      calories += getMealCalories(summaryData?.dinner);
+    }
+    return calories;
+  }, [summaryData]);
+
   if (isLoadingSummary) return <div className="page-spinner"><Spin /></div>;
 
   return (
@@ -42,10 +62,10 @@ const Summary = () => {
       <Header text={t("Today's summary")} />
       <div className="progress-bar">
         <Progress
-          percent={20.75}
+          percent={calculateCalories / calculateTargetCalories * 100}
           strokeColor={{ "0%": "#108ee9", "100%": "#87d068" }}
         />
-        <div className="progress-bar-sumup">415 / 2000 {t("calories")}</div>
+        <div className="progress-bar-sumup">{`${calculateCalories} / ${calculateTargetCalories}`} {t("calories")}</div>
       </div>
       <ImageAndContent
         image={"static/images/breakfast.png"}

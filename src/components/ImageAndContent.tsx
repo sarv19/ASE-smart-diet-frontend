@@ -21,6 +21,13 @@ const ImageAndContent = (props: ImageAndContentProps) => {
       sodium: mealData?.meal?.totalSodium,
     }
   }, [mealData]);
+  
+  const mealCalories = useMemo(() => {
+    const ingredients = mealData?.ingredients;
+    return ingredients?.reduce((acc: any, item: any) => {
+      return acc + item.calories;
+    }, 0);
+  }, [mealData]);
 
   const [isModalOpen, setModalOpen] = useState(false);
 
@@ -67,7 +74,7 @@ const ImageAndContent = (props: ImageAndContentProps) => {
         style={customStyles}
         closeTimeoutMS={1000}
       >
-        <Recipes closeModal={closeModal} content={mealData} />
+        <Recipes closeModal={closeModal} content={{targetCalories: mealCalories}} />
       </Modal>
       <div className="image-and-content__image">
         <img alt={mealData} src={image} />
@@ -79,7 +86,7 @@ const ImageAndContent = (props: ImageAndContentProps) => {
             <div>
               <div>
                 <span className="total">Total calories: </span>
-                {mealData.meal.totalCalories}
+                {mealCalories}
               </div>
               <ul className="nutritient-list">
                 {mealDataNutrition &&

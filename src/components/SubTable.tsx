@@ -46,22 +46,7 @@ const SubTable = ({
       body: JSON.stringify({ ingredientId: ingredientId, mealId: mealId }),
     });
     const data = await response.json();
-    // const data = [
-    //   {
-    //     "ingredientId": 1,
-    //     "ingredientName": "Pork loin",
-    //     "calories": 185,
-    //     "quantity": 1,
-    //     "weight": 150,
-    //   },
-    //   {
-    //     "ingredientId": 2,
-    //     "ingredientName": "Lamb chop",
-    //     "calories": 205,
-    //     "quantity": 1,
-    //     "weight": 130,
-    //   },
-    // ]
+
     setSubtitutions(data?.data?.data?.list);
   }
 

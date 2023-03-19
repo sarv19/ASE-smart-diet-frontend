@@ -59,7 +59,7 @@ const mockRecipes = [
 
 const Recipes = ({ closeModal, content }: Props) => {
   const {
-    meal: { totalCalories: targetCalories },
+    targetCalories
   } = content;
 
   const filters: string = `calories: ${
