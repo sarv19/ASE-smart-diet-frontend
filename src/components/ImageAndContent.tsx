@@ -22,7 +22,6 @@ const ImageAndContent = (props: ImageAndContentProps) => {
       "Protein (mg)": mealData?.meal?.totalProtein,
       "Fat (mg)": mealData?.meal?.totalFat,
       "Carbohydrates (mg)": mealData?.meal?.totalCarbohydrate,
-      // sodium: mealData?.meal?.totalSodium,
     }
   }, [mealData]);
 
