@@ -67,7 +67,7 @@ const Recipes = ({ closeModal, content }: Props) => {
   
   const filters: string = `calories: ${
     targetCalories - 50
-  } TO ${targetCalories}`;
+  } TO ${targetCalories + 20}`;
 
   const { data, isLoading } = useQuery({
     queryFn: () => recipe.get({ filters }),
