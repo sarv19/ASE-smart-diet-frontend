@@ -7,7 +7,14 @@ import {
   User,
   signOut as firebaseSignOut,
 } from "firebase/auth";
-import { getFirestore, doc, Firestore, updateDoc } from "firebase/firestore";
+import {
+  getFirestore,
+  doc,
+  Firestore,
+  updateDoc,
+  getDoc,
+  setDoc,
+} from "firebase/firestore";
 import { useRouter } from "next/router";
 
 import getFirebase from "@/shared/getFirebase";
@@ -25,11 +32,20 @@ const INITIAL_CONTEXT: UserContext = {
 };
 
 async function storeUserInFirestore(db: Firestore, user: User) {
-  await updateDoc(doc(db, "users", user.uid), {
-    emailVerified: user.emailVerified,
-    photoUrl: user.photoURL,
-    displayName: user.displayName,
-  });
+  const userRef = doc(db, "users", user.uid);
+  if (await getDoc(userRef)) {
+    await updateDoc(userRef, {
+      emailVerified: user.emailVerified,
+      photoUrl: user.photoURL,
+      displayName: user.displayName,
+    });
+  } else {
+    await setDoc(userRef, {
+      emailVerified: user.emailVerified,
+      photoUrl: user.photoURL,
+      displayName: user.displayName,
+    });
+  }
 }
 
 async function registerUserWithBE(user: User) {
