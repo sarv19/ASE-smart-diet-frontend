@@ -66,7 +66,7 @@ const Recipes = ({ closeModal, content }: Props) => {
   const { t } = useTranslation('', { useSuspense: false });
   
   const filters: string = `calories: ${
-    targetCalories - 50
+    targetCalories - 100
   } TO ${targetCalories + 20}`;
 
   const { data, isLoading } = useQuery({
