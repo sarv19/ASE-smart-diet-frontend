@@ -10,6 +10,7 @@
     "Dinner": "Dîner",
     "Daily diet": "Régime journalié",
     "Target calories": "Objectif calorique",
+    "Total calories": "Calories totales",
     "Temporary calories sum": "Somme des calories temporaires",
     "Ingredient": "Ingrédient",
     "Ingredients": "Ingrédients",
@@ -92,6 +93,7 @@
     "salmon": "saumon",
     "tuna": "thon",
     "banana": "banane",
-    "squash": "courge"
-
+    "squash": "courge",
+    "Simple and tasty recipes": "Recettes simples et savoureuses",
+    "Using your list of chosen ingredients": "En utilisant votre liste d'ingrédients choisis"
 }

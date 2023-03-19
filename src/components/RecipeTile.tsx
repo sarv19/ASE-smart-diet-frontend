@@ -1,6 +1,9 @@
 import { Tooltip } from "antd";
+import { useTranslation } from "react-i18next";
 
 const RecipeTile = ({ recipe }: any) => {
+  const { t } = useTranslation('', { useSuspense: false });
+  
   return (
     <div className="recipe-tile">
       <div>
@@ -22,7 +25,7 @@ const RecipeTile = ({ recipe }: any) => {
         </a>
         <div className="recipe-tile-nutrition">
           <div className="recipe-tile-nutrition-calories">
-            {recipe.calories} calories
+            {recipe.calories} {t("calories")}
           </div>
           <div className="recipe-tile-nutrition-allergens">
             {recipe.allergens?.map((item: string) => (
@@ -41,15 +44,15 @@ const RecipeTile = ({ recipe }: any) => {
         <hr className="recipe-tile-hr" />
         <div className="recipe-tile-info">
           <div>
-            <div className="recipe-tile-info-label">Time</div>
+            <div className="recipe-tile-info-label">{t("Time")}</div>
             <div className="recipe-tile-info-value">
-              {recipe.cooking_time} mins
+              {recipe.cooking_time} {t("mins")}
             </div>
           </div>
           <div className="recipe-tile-info-right">
-            <div className="recipe-tile-info-label">Portion</div>
+            <div className="recipe-tile-info-label">{t("Portion")}</div>
             <div className="recipe-tile-info-value">
-              {recipe.portion} persons
+              {recipe.portion} {t("persons")}
             </div>
           </div>
         </div>

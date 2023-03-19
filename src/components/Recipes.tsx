@@ -5,6 +5,7 @@ import * as recipe from "@/modules/recipe/actions";
 
 import { CloseIcon } from "./Icons";
 import RecipeTile from "./RecipeTile";
+import { useTranslation } from "react-i18next";
 
 type Props = {
   closeModal: any;
@@ -62,6 +63,8 @@ const Recipes = ({ closeModal, content }: Props) => {
     targetCalories
   } = content;
 
+  const { t } = useTranslation('', { useSuspense: false });
+  
   const filters: string = `calories: ${
     targetCalories - 50
   } TO ${targetCalories}`;
@@ -81,9 +84,9 @@ const Recipes = ({ closeModal, content }: Props) => {
             <CloseIcon />
           </button>
         </div>
-        <div className="recipes-title">Simple and tasty recipes</div>
+        <div className="recipes-title">{t("Simple and tasty recipes")}</div>
         <div className="recipes-sub-title">
-          Using your list of chosen ingredients
+          {t("Using your list of chosen ingredients")}
         </div>
         <div className="recipes-list">
           {data.map((recipe: any, index: any) => (

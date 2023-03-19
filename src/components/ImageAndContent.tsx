@@ -2,6 +2,8 @@ import { useMemo, useState } from "react";
 import Modal from "react-modal";
 import classnames from "classnames";
 import Recipes from "./Recipes";
+import { useTranslation } from 'react-i18next';
+import { capitalizeFirstLetter } from "./utils";
 
 type ImageAndContentProps = {
   image?: string;
@@ -12,16 +14,18 @@ type ImageAndContentProps = {
 const ImageAndContent = (props: ImageAndContentProps) => {
   const { image, content: mealData, reverse, title } = props;
 
+  const { t } = useTranslation('', { useSuspense: false });
+
   const mealDataNutrition = useMemo(() => {
     return {
-      weight: mealData?.meal?.totalWeight,
-      protein: mealData?.meal?.totalProtein,
-      fat: mealData?.meal?.totalFat,
-      carbohydrate: mealData?.meal?.totalCarbohydrate,
-      sodium: mealData?.meal?.totalSodium,
+      "Weight": mealData?.meal?.totalWeight,
+      "Protein (mg)": mealData?.meal?.totalProtein,
+      "Fat (mg)": mealData?.meal?.totalFat,
+      "Carbohydrates (mg)": mealData?.meal?.totalCarbohydrate,
+      // sodium: mealData?.meal?.totalSodium,
     }
   }, [mealData]);
-  
+
   const mealCalories = useMemo(() => {
     const ingredients = mealData?.ingredients;
     return ingredients?.reduce((acc: any, item: any) => {
@@ -85,16 +89,16 @@ const ImageAndContent = (props: ImageAndContentProps) => {
           {mealData && Object.keys(mealData).length > 0 ? (
             <div>
               <div>
-                <span className="total">Total calories: </span>
+                <span className="total">{t("Total calories")}: </span>
                 {mealCalories}
               </div>
               <ul className="nutritient-list">
                 {mealDataNutrition &&
                   Object.entries(mealDataNutrition)?.map((item, index) => {
                     return (
-                      <li key={index}>{`${item[0]}: ${item[1]} ${
+                      <li key={index}>{capitalizeFirstLetter(t(item[0]))}: {item[1]} {
                         item[0] == "Protein" ? "gr" : "mg"
-                      }`}</li>
+                      }</li>
                     );
                   })}
               </ul>

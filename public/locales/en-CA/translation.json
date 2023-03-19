@@ -10,6 +10,7 @@
     "Dinner": "Dinner",
     "Daily diet": "Daily diet",
     "Target calories": "Target calories",
+    "Total calories": "Total calories",
     "Temporary calories sum": "Temporary calories sum",
     "Ingredient": "Ingredient",
     "Ingredients": "Ingredients",
@@ -93,5 +94,11 @@
     "salmon": "salmon",
     "tuna": "tuna",
     "banana": "banana",
-    "squash": "squash"
+    "squash": "squash",
+    "Simple and tasty recipes": "Simple and tasty recipes",
+    "Using your list of chosen ingredients": "Using your list of chosen ingredients",
+    "Time": "Time",
+    "mins": "mins",
+    "Portion": "Portion",
+    "persons": "persons"
 }
