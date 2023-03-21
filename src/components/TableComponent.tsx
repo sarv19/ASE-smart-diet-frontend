@@ -111,7 +111,7 @@ const TableComponent = (props: TableComponentProps) => {
           IngredientList(item, index) 
         )
       }
-      { tableData && tableData?.map(( item: any, index: number ) =>
+      { result?.length == 0 && tableData && tableData?.map(( item: any, index: number ) =>
             IngredientList(item, index)
         )
       }
@@ -120,6 +120,7 @@ const TableComponent = (props: TableComponentProps) => {
         </div>
     </div>
   )
+  
   return (
     <div>
       <div className="daily-diet-header-calories">

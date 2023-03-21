@@ -103,7 +103,7 @@ const ImageAndContent = (props: ImageAndContentProps) => {
               </ul>
               <div className={"view-recipe"}>
                 <button onClick={openModal} className={"view-recipe-btn"}>
-                  View recipes
+                  {t('View recipes')}
                 </button>
               </div>
             </div>
