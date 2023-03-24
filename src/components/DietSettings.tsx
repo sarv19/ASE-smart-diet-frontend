@@ -1,9 +1,14 @@
+import React, { useMemo } from "react";
+
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Alert, Button, Form, InputNumber, Space, Spin } from "antd";
+import { Button, Form, InputNumber, Space, Spin, notification } from "antd";
 import { useTranslation } from "react-i18next";
 
 import * as settings from "@/modules/settings/diet/actions";
 import { useAuth } from "@/modules/auth";
+import type { NotificationPlacement } from 'antd/es/notification/interface';
+
+const Context = React.createContext({ name: 'Default' });
 
 const DietSettings = () => {
   const { t } = useTranslation("", { useSuspense: false });
@@ -27,26 +32,32 @@ const DietSettings = () => {
     enabled: !!currentUser,
   });
 
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = (placement: NotificationPlacement) => {
+    api.info({
+      message: `${t('Diet updated')}!`,
+      placement,
+    });
+  };
+
   const onFinish = (values: any) => {
     mutate({
       targetCaloriesMax: values.maxCal,
       targetCaloriesMin: values.minCal,
     });
-    // return (
-    //   <Alert
-    //     message="Diet updated!"
-    //     type="success"
-    //     showIcon
-    //     closable
-    //   />
-    // )
+    openNotification('bottomLeft');
   };
 
   const onFinishFailed = (errorInfo: any) => {
     console.log("Failed:", errorInfo);
   };
 
+  const contextValue = useMemo(() => ({ name: 'Ant Design' }), []);
+
   return (
+    <Context.Provider value={contextValue}>
+      {contextHolder}
     <div>
       {isLoading ? (
         <div className="page-spinner">
@@ -127,6 +138,7 @@ const DietSettings = () => {
         </Form>
       )}
     </div>
+    </Context.Provider>
   );
 };
 
