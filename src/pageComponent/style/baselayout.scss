@@ -43,6 +43,18 @@
   bottom: 0;
   width: 100%;
 
+  &-info {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 8px;
+
+    img {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
   &-lang {
     width: fit-content;
     margin: auto;

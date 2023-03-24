@@ -39,6 +39,12 @@ const CloseImg = () => (
     </Tooltip>
 );
 
+const InfoImg = () => (
+    <Tooltip placement="right" title={'User manual'}>
+        <img src="https://img.icons8.com/windows/64/FFFFFF/about-us-male--v1.png"/>
+    </Tooltip>
+);
+
 const HomeIcon = (props: Partial<CustomIconComponentProps>) => (
     <Icon component={HomeImg} {...props} />
 );
@@ -63,11 +69,16 @@ const CloseIcon = (props: Partial<CustomIconComponentProps>) => (
     <Icon component={CloseImg} {...props} />
 );
 
+const InfoIcon = (props: Partial<CustomIconComponentProps>) => (
+    <Icon component={InfoImg} {...props} />
+);
+
 export {
     HomeIcon,
     MenuIcon,
     ReportIcon,
     DietIcon,
     SettingIcon,
-    CloseIcon
+    CloseIcon,
+    InfoIcon
 }

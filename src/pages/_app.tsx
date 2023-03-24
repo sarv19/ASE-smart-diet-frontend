@@ -10,7 +10,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { AuthContext, useAuth } from "@/modules/auth";
 import { getKeyByValue } from "@/components/utils";
 
-import { PAGES } from "../constants";
+import { manualLinkEnglish, manualLinkFrench, PAGES } from "../constants";
 import { useTranslation } from "react-i18next";
 import {
   DietIcon,
@@ -18,6 +18,7 @@ import {
   MenuIcon,
   ReportIcon,
   SettingIcon,
+  InfoIcon
 } from "../pageComponent/Icons";
 
 // import i18n (needs to be bundled ;))
@@ -31,7 +32,7 @@ const items: MenuProps["items"] = [
   MenuIcon,
   ReportIcon,
   DietIcon,
-  SettingIcon,
+  SettingIcon
 ].map((icon, index) => ({
   key: Object.keys(PAGES)[index],
   icon: React.createElement(icon),
@@ -50,6 +51,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const { t, i18n } = useTranslation("", { useSuspense: false });
   const [currentLng, setCurrentLang] = useState("en-CA");
   const [toggleAds, setToggleAds] = useState(true);
+  const [manualLink, setManualLink] = useState(manualLinkEnglish);
 
   const sideBarRef = React.useRef<any>(null);
 
@@ -71,9 +73,13 @@ export default function App({ Component, pageProps }: AppProps) {
     setToggleAds(!toggleAds);
   }
 
-  //TO DO: fix the logic to make the btn show the right language when the app 1st loads
   useEffect(() => {
     if (currentLng !== i18n.language) setCurrentLang(i18n.language);
+    if (currentLng?.includes('en') || i18n.language?.includes('en')) {
+      setManualLink(manualLinkEnglish);
+    } else {
+      setManualLink(manualLinkFrench);
+    }
   }, [currentLng, i18n.language]);
 
   return (
@@ -143,6 +149,9 @@ export default function App({ Component, pageProps }: AppProps) {
                           )}
                       </ConfigProvider>
                     </div>
+                    <a className="functional-btns-info" href={manualLink} target="_blank">
+                      <InfoIcon />
+                    </a>
                     <Tooltip
                       placement="right"
                       title={"Log out"}
