@@ -18,20 +18,6 @@ const Summary = () => {
     enabled: !!currentUser,
   });
 
-  const calculateTargetCalories = useMemo(() => {
-    let calories = 0;
-    if (summaryData?.breakfast) {
-      calories += summaryData?.breakfast.meal.totalCalories;
-    }
-    if (summaryData?.lunch) {
-      calories += summaryData?.lunch.meal.totalCalories;
-    }
-    if (summaryData?.dinner) {
-      calories += summaryData?.dinner.meal.totalCalories;
-    }
-    return calories;
-  }, [summaryData]);
-
   const getMealCalories = (meal: any) => {
     return meal.ingredients?.reduce((acc: any, item: any) => {
       return acc + item.calories;
@@ -62,10 +48,10 @@ const Summary = () => {
       <Header text={t("Today's summary")} />
       <div className="progress-bar">
         <Progress
-          percent={calculateCalories / calculateTargetCalories * 100}
+          percent={calculateCalories / summaryData?.userTarget?.targetCaloriesMax * 100}
           strokeColor={{ "0%": "#108ee9", "100%": "#87d068" }}
         />
-        <div className="progress-bar-sumup">{`${calculateCalories} / ${calculateTargetCalories}`} {t("calories")}</div>
+        <div className="progress-bar-sumup">{`${calculateCalories} / ${summaryData?.userTarget?.targetCaloriesMax}`} {t("calories")}</div>
       </div>
       <ImageAndContent
         image={"static/images/breakfast.png"}
