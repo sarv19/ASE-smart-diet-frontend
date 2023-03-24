@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { Button, Form, InputNumber, Space, Spin } from "antd";
+import { Alert, Button, Form, InputNumber, Space, Spin } from "antd";
 import { useTranslation } from "react-i18next";
 
 import * as settings from "@/modules/settings/diet/actions";
@@ -32,6 +32,14 @@ const DietSettings = () => {
       targetCaloriesMax: values.maxCal,
       targetCaloriesMin: values.minCal,
     });
+    // return (
+    //   <Alert
+    //     message="Diet updated!"
+    //     type="success"
+    //     showIcon
+    //     closable
+    //   />
+    // )
   };
 
   const onFinishFailed = (errorInfo: any) => {

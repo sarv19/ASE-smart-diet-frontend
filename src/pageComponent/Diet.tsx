@@ -1,4 +1,4 @@
-import { Header } from "@/components";
+import { DietSettings, Header } from "@/components";
 import Head from "next/head";
 import Link from "next/link";
 import DietForm from "./DietForm";
@@ -19,7 +19,8 @@ const Diet = () => {
           <div className="diet-content-edit">{t('Edit your diet')} <Link href={{ pathname: '/settings', query: { tab: 'diet' } }}>{t('here')}</Link></div>
           <div className="diet-content-or">{t('or')}</div>
           <div className="diet-content-edit">{t('Create a new one below')}:</div>
-          <DietForm />
+          {/* <DietForm /> */}
+          <DietSettings />
         </div>
       </div>
     </Suspense>
