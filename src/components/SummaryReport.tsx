@@ -33,12 +33,12 @@ export const downloadPdf = async (summaryData: any, allIngredients: any, date: s
                 }
                 {lunch &&
                     <View>
-                        <Text style={{paddingBottom: 10}}>Lunch:</Text>
+                        <Text style={{paddingBottom: 10}}>{t("Lunch")}:</Text>
                         <Text style={{paddingLeft: 15, paddingBottom: 10, fontSize: 13}}>{t("Total calories")}: {lunch?.meal?.totalCalories}</Text>
-                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Weight")}: {lunch?.meal?.totalWeight}</Text>
-                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Protein")}: {lunch?.meal?.totalProtein}</Text>
-                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Fat")}: {lunch?.meal?.totalFat}</Text>
-                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Carbohydrate")}: {lunch?.meal?.totalCarbohydrate}</Text>
+                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Weight")}: {lunch?.meal?.totalWeight} gr</Text>
+                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Protein")}: {lunch?.meal?.totalProtein} gr</Text>
+                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Fat")}: {lunch?.meal?.totalFat} mg</Text>
+                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Carbohydrate")}: {lunch?.meal?.totalCarbohydrate} mg</Text>
                         <Text style={{paddingLeft: 15, paddingBottom: 10, fontSize: 14}}>{t("Ingredients")}:</Text>
                         {lunch?.ingredients?.map((item: any, index: number) =>
                             <Text key={index} style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t(getIngredientNameById(item?.ingredientId))}: {item?.weight} gr</Text>)
@@ -47,12 +47,12 @@ export const downloadPdf = async (summaryData: any, allIngredients: any, date: s
                 }
                 {dinner &&
                     <View>
-                        <Text style={{paddingBottom: 10}}>Dinner:</Text>
+                        <Text style={{paddingBottom: 10}}>{t("Dinner")}:</Text>
                         <Text style={{paddingLeft: 15, paddingBottom: 10, fontSize: 13}}>{t("Total calories")}: {dinner?.meal?.totalCalories}</Text>
-                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Weight")}: {dinner?.meal?.totalWeight}</Text>
-                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Protein")}: {dinner?.meal?.totalProtein}</Text>
-                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Fat")}: {dinner?.meal?.totalFat}</Text>
-                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Carbohydrate")}: {dinner?.meal?.totalCarbohydrate}</Text>
+                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Weight")}: {dinner?.meal?.totalWeight} gr</Text>
+                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Protein")}: {dinner?.meal?.totalProtein} gr</Text>
+                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Fat")}: {dinner?.meal?.totalFat} mg</Text>
+                        <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t("Carbohydrate")}: {dinner?.meal?.totalCarbohydrate} mg</Text>
                         <Text style={{paddingLeft: 15, paddingBottom: 10, fontSize: 14}}>{t("Ingredients")}:</Text>
                         {dinner?.ingredients?.map((item: any, index: number) =>
                             <Text key={index} style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {t(getIngredientNameById(item?.ingredientId))}: {item?.weight} gr</Text>)
