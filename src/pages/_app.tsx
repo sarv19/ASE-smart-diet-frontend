@@ -149,7 +149,7 @@ export default function App({ Component, pageProps }: AppProps) {
                           )}
                       </ConfigProvider>
                     </div>
-                    <a className="functional-btns-info" href={manualLink} target="_blank">
+                    <a className="functional-btns-info" href={manualLink} target="_blank" rel="noreferrer">
                       <InfoIcon />
                     </a>
                     <Tooltip
