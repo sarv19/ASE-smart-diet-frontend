@@ -18,8 +18,8 @@ export default async function handler(
     );
 
     const response = await axios.post(
-      `${BACKEND_BASE_URL}/sd/summary/summarizeToday`,
-      {},
+      `${BACKEND_BASE_URL}/sd/summary/summarizeADay`,
+      {dayBefore:0},
       {
         headers: {
           "Content-Type": "application/json",
