@@ -23,8 +23,8 @@ const Summary = () => {
   });
 
   const { data: summaries, isLoading: isLoadingSummary } = useQuery({
-    queryFn: async () => 
-      summaryAction.get({ day:0 }, (await currentUser?.getIdToken()) || ""),
+    queryFn: async () =>
+      summaryAction.get({ day: 0 }, (await currentUser?.getIdToken()) || ""),
     queryKey: ['getSummary'],
     enabled: !!currentUser,
   });
@@ -76,8 +76,6 @@ const Summary = () => {
     }
   };
 
-  if (isLoadingSummary || isLoading || isLoadingIngredients) return <div className="page-spinner"><Spin /></div>;
-
   return (
     <div className="summary">
       <Head>
@@ -101,22 +99,27 @@ const Summary = () => {
         />
         <div className="progress-bar-sumup">{`${calculateCalories} / ${summaryData?.userTarget?.targetCaloriesMax}`} {t("calories")}</div>
       </div>
-      <ImageAndContent
-        image={"static/images/breakfast.png"}
-        title={t("Breakfast") || "Breakfast"}
-        content={summaryData?.breakfast}
-      />
-      <ImageAndContent
-        image={"static/images/cooking.png"}
-        title={t("Lunch") || "Lunch"}
-        content={summaryData?.lunch}
-        reverse
-      />
-      <ImageAndContent
-        image={"static/images/snack.png"}
-        title={t("Dinner") || "Dinner"}
-        content={summaryData?.dinner}
-      />
+      {
+        (isLoadingSummary || isLoading || isLoadingIngredients) ? <div className="page-spinner"><Spin /></div> :
+          <>
+            <ImageAndContent
+              image={"static/images/breakfast.png"}
+              title={t("Breakfast") || "Breakfast"}
+              content={summaryData?.breakfast}
+            />
+            <ImageAndContent
+              image={"static/images/cooking.png"}
+              title={t("Lunch") || "Lunch"}
+              content={summaryData?.lunch}
+              reverse
+            />
+            <ImageAndContent
+              image={"static/images/snack.png"}
+              title={t("Dinner") || "Dinner"}
+              content={summaryData?.dinner}
+            />
+          </>
+      }
     </div>
   );
 };
