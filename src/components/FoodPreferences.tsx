@@ -4,7 +4,7 @@ import { Form, Select, Spin } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { titleCase } from './utils';
+import { titleCase, transformIngredientList } from './utils';
 
 const FoodPreferences = () => {
   const { t } = useTranslation('', { useSuspense: false });
@@ -19,13 +19,6 @@ const FoodPreferences = () => {
     getAllIngredients();
     getFoodPreference();
   }, []);
-
-  const transformIngredientList = (list: any) => {
-    if (!list || list.length < 1) return [];
-    return list.map((item: any) => (
-      { label: titleCase(item.ingredientName), value: item.ingredientName, preferenceId: item.preferenceId, id: item.ingredientId}
-    ))
-  }
 
   const getAllIngredients =async () => {
     const res = await axios.post(

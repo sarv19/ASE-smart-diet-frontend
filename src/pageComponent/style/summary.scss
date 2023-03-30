@@ -5,6 +5,23 @@
     .ant-progress-text {
         display: none;
     }
+
+    &-ctas {
+        margin-bottom: 30px;
+        @media (min-width: 768px) {
+            padding-left: 30px;
+            display: flex;
+        }
+
+        &-date {
+            margin-bottom: 15px;
+
+            @media (min-width: 768px) {
+                margin-bottom: 0;
+                margin-right: 20px;
+            }
+        }
+    }
     
     .progress-bar {
         width: 80%;

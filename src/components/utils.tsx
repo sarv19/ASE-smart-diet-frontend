@@ -13,3 +13,10 @@ export const titleCase = (str: string) => {
    }
    return splitStr.join(' '); 
 }
+
+export const transformIngredientList = (list: any) => {
+    if (!list || list.length < 1) return [];
+    return list.map((item: any) => (
+      { label: titleCase(item.ingredientName), value: item.ingredientName, preferenceId: item.preferenceId, id: item.ingredientId}
+    ))
+}
