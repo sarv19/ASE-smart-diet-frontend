@@ -21,7 +21,7 @@ const RecipeTile = ({ recipe }: any) => {
           className="recipe-tile-link"
           rel="noreferrer"
         >
-          <div className="recipe-tile-title">{recipe.name}</div>
+          <div className="recipe-tile-title">{t(recipe.name)}</div>
         </a>
         <div className="recipe-tile-nutrition">
           <div className="recipe-tile-nutrition-calories">
@@ -34,7 +34,7 @@ const RecipeTile = ({ recipe }: any) => {
                 title={item}
                 className="recipe-tile-nutrition-allergens-item"
               >
-                *{item}
+                *{t(item)}
               </Tooltip>
             ))}
           </div>
