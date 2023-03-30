@@ -37,31 +37,17 @@ const DailyDiet: React.FC = () => {
     enabled: !!currentUser,
   });
 
-  if (
-    isLoadingBreakfast ||
-    isLoadingLunch ||
-    isLoadingDinner ||
-    !dataLunch ||
-    !dataBreakfast ||
-    !dataDinner
-  )
-    return (
-      <div className="page-spinner">
-        <Spin />
-      </div>
-    );
-
   const items: TabsProps["items"] = [
     {
       key: "breakfast",
       label: t("Breakfast"),
       children: (
         <TableComponent
-          mealId={dataBreakfast.mealId}
-          tableData={dataBreakfast.ingredients}
+          mealId={dataBreakfast?.mealId}
+          tableData={dataBreakfast?.ingredients}
           setCalories={setTotalCalories}
-          totalTargetCalories={dataBreakfast.totalTargetCalories}
-          mealDate={dataBreakfast.mealDate}
+          totalTargetCalories={dataBreakfast?.totalTargetCalories}
+          mealDate={dataBreakfast?.mealDate}
         />
       ),
     },
@@ -70,11 +56,11 @@ const DailyDiet: React.FC = () => {
       label: t("Lunch"),
       children: (
         <TableComponent
-          mealId={dataLunch.mealId}
-          tableData={dataLunch.ingredients}
+          mealId={dataLunch?.mealId}
+          tableData={dataLunch?.ingredients}
           setCalories={setTotalCalories}
-          totalTargetCalories={dataLunch.totalTargetCalories}
-          mealDate={dataLunch.mealDate}
+          totalTargetCalories={dataLunch?.totalTargetCalories}
+          mealDate={dataLunch?.mealDate}
         />
       ),
     },
@@ -83,11 +69,11 @@ const DailyDiet: React.FC = () => {
       label: t("Dinner"),
       children: (
         <TableComponent
-          mealId={dataDinner.mealId}
-          tableData={dataDinner.ingredients}
+          mealId={dataDinner?.mealId}
+          tableData={dataDinner?.ingredients}
           setCalories={setTotalCalories}
-          totalTargetCalories={dataDinner.totalTargetCalories}
-          mealDate={dataDinner.mealDate}
+          totalTargetCalories={dataDinner?.totalTargetCalories}
+          mealDate={dataDinner?.mealDate}
         />
       ),
     },
@@ -102,7 +88,20 @@ const DailyDiet: React.FC = () => {
         {/* Causing hydration */}
         <Header text={t("Today's menu")} />
       </div>
-      <Tabs defaultActiveKey="1" items={items} />
+      {
+        (
+          isLoadingBreakfast ||
+          isLoadingLunch ||
+          isLoadingDinner ||
+          !dataLunch ||
+          !dataBreakfast ||
+          !dataDinner
+        ) ?
+          <div className="page-spinner">
+            <Spin />
+          </div> :
+          <Tabs defaultActiveKey="1" items={items} />
+      }
     </div>
   );
 };
