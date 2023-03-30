@@ -29,8 +29,8 @@ export const downloadPdf = async (summaryData: any, allIngredients: any) => {
                         <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ Fat: {breakfast?.meal?.totalFat}</Text>
                         <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ Carbohydrate: {breakfast?.meal?.totalCarbohydrate}</Text>
                         <Text style={{paddingLeft: 15, paddingBottom: 10, fontSize: 14}}>Ingredients:</Text>
-                        {breakfast?.ingredients?.map((item: any) =>
-                            <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {getIngredientNameById(item?.ingredientId)}: {item?.weight} gr</Text>)
+                        {breakfast?.ingredients?.map((item: any, index: number) =>
+                            <Text key={index} style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {getIngredientNameById(item?.ingredientId)}: {item?.weight} gr</Text>)
                         }
                     </View>
                 }
@@ -43,8 +43,8 @@ export const downloadPdf = async (summaryData: any, allIngredients: any) => {
                         <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ Fat: {lunch?.meal?.totalFat}</Text>
                         <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ Carbohydrate: {lunch?.meal?.totalCarbohydrate}</Text>
                         <Text style={{paddingLeft: 15, paddingBottom: 10, fontSize: 14}}>Ingredients:</Text>
-                        {lunch?.ingredients?.map((item: any) =>
-                            <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {getIngredientNameById(item?.ingredientId)}: {item?.weight} gr</Text>)
+                        {lunch?.ingredients?.map((item: any, index: number) =>
+                            <Text key={index} style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {getIngredientNameById(item?.ingredientId)}: {item?.weight} gr</Text>)
                         }
                     </View>
                 }
@@ -57,8 +57,8 @@ export const downloadPdf = async (summaryData: any, allIngredients: any) => {
                         <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ Fat: {dinner?.meal?.totalFat}</Text>
                         <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ Carbohydrate: {dinner?.meal?.totalCarbohydrate}</Text>
                         <Text style={{paddingLeft: 15, paddingBottom: 10, fontSize: 14}}>Ingredients:</Text>
-                        {dinner?.ingredients?.map((item: any) =>
-                            <Text style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {getIngredientNameById(item?.ingredientId)}: {item?.weight} gr</Text>)
+                        {dinner?.ingredients?.map((item: any, index: number) =>
+                            <Text key={index} style={{paddingLeft: 30, paddingBottom: 10, fontSize: 13}}>+ {getIngredientNameById(item?.ingredientId)}: {item?.weight} gr</Text>)
                         }
                     </View>
                 }
