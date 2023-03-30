@@ -1,54 +1,46 @@
-import { Button, DatePicker, Progress, Spin } from "antd";
+import { Button, DatePicker, DatePickerProps, Progress, Spin } from "antd";
 import Head from "next/head";
 import { ImageAndContent, Header } from "../components";
 import { useTranslation } from "react-i18next";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import * as summaryAction from "@/modules/summary/actions";
 import { useAuth } from "@/modules/auth";
-import { useEffect, useMemo, useState } from "react";
+import { use, useEffect, useMemo, useState } from "react";
 import dayjs from 'dayjs';
-import type { Dayjs } from 'dayjs';
 import { downloadPdf } from "@/components/SummaryReport";
-import axios from "axios";
-import { BACKEND_BASE_URL } from "@/constants";
-import { transformIngredientList } from "@/components/utils";
 
 const Summary = () => {
   const { t } = useTranslation("", { useSuspense: false });
   const { currentUser } = useAuth();
+  const [currentDate, setCurrentDate] = useState(dayjs().locale('fr-FR').format('DD-MMM-YYYY'));
+  const [summaryData, setSummaryData] = useState<any>();
 
-  const [allIngredients, setAllIngredients] = useState<any[]>([]);
-
-  useEffect(() => {
-    getAllIngredients();
-  }, []);
-
-
-  const getAllIngredients = async () => {
-    console.log('user:', currentUser?.uid)
-    const res = await axios.post(
-      `${BACKEND_BASE_URL}/sd/ingredient/ingredientList`,
-      {
-        pageSize: 50
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: currentUser?.uid,
-        },
-      }
-    )
-    const data = res.data?.data?.list;
-    setAllIngredients(transformIngredientList(data))
-    return data;
-  }
-
-  const { data: summaryData, isLoading: isLoadingSummary } = useQuery({
+  const { data: allIngredients, isLoading: isLoadingIngredients } = useQuery({
     queryFn: async () =>
-    summaryAction.get((await currentUser?.getIdToken()) || ""),
-    queryKey: [summaryAction.get.key, "breakfast", currentUser?.uid],
+      summaryAction.getAllIngredients((await currentUser?.getIdToken()) || ""),
+    queryKey: [currentUser?.uid],
     enabled: !!currentUser,
+  });
+
+  const { data: summaries, isLoading: isLoadingSummary } = useQuery({
+    queryFn: async () => 
+      summaryAction.get({ day:0 }, (await currentUser?.getIdToken()) || ""),
+    queryKey: ['getSummary'],
+    enabled: !!currentUser,
+  });
+
+  const { mutate, isLoading } = useMutation<
+    unknown,
+    unknown,
+    any,
+    unknown
+  >({
+    mutationFn: async (day) => {
+      return currentUser && summaryAction.get(day, (await currentUser?.getIdToken()) || "");
+    },
+    onSuccess: (result: any) => {
+      setSummaryData(result)
+    }
   });
 
   const getMealCalories = (meal: any) => {
@@ -71,21 +63,36 @@ const Summary = () => {
     return calories;
   }, [summaryData]);
 
-  if (isLoadingSummary || allIngredients.length < 1) return <div className="page-spinner"><Spin /></div>;
+  useEffect(() => {
+    setSummaryData(summaries)
+  }, [summaries])
+
+  const handleChangeDate: DatePickerProps['onChange'] = (date, dateString) => {
+    if (date) {
+      setCurrentDate(dayjs(dateString).format('DD-MMM-YYYY'));
+      mutate({
+        day: dayjs().diff(date, 'd')
+      });
+    }
+  };
+
+  if (isLoadingSummary || isLoading || isLoadingIngredients) return <div className="page-spinner"><Spin /></div>;
 
   return (
     <div className="summary">
       <Head>
         <title>{t("Summary")}</title>
       </Head>
-      <Header text={t("Today's summary")} />
+      <Header text={t("Summary")} />
       <div className="summary-ctas">
         <div className="summary-ctas-date">{t("Choose a date to show  summary")}:&nbsp;
           <DatePicker
             defaultValue={dayjs()}
+            onChange={handleChangeDate}
+            value={dayjs(currentDate)}
           />
         </div>
-        <Button onClick={() => downloadPdf(summaryData, allIngredients)}>{t("Download Report")}</Button>
+        <Button onClick={() => downloadPdf(summaryData, allIngredients?.data, currentDate, t)}>{t("Download Report")}</Button>
       </div>
       <div className="progress-bar">
         <Progress

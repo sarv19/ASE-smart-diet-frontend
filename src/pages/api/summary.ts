@@ -16,10 +16,10 @@ export default async function handler(
       firebaseApp,
       req.headers.authorization || ""
     );
-
+    
     const response = await axios.post(
       `${BACKEND_BASE_URL}/sd/summary/summarizeADay`,
-      {dayBefore:0},
+      { dayBefore: req?.query?.dateBefore },
       {
         headers: {
           "Content-Type": "application/json",
@@ -30,6 +30,27 @@ export default async function handler(
     );
     const data = response.data;
 
+    return res.status(httpStatus.OK).json(data);
+
+  } else if (req.method === "POST") {
+    const { uid, email } = await verifyIdToken(
+      firebaseApp,
+      req.headers.authorization || ""
+    );
+    const response = await axios.post(
+      `${BACKEND_BASE_URL}/sd/ingredient/ingredientList`,
+      {
+        pageSize: 50
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: uid,
+        },
+      }
+    )
+    const data = response.data?.data?.list;
     return res.status(httpStatus.OK).json(data);
   }
   return res

@@ -1,14 +1,15 @@
 import { BACKEND_BASE_URL } from '@/constants';
 import { useAuth } from '@/modules/auth';
+import { useQuery } from '@tanstack/react-query';
 import { Form, Select, Spin } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { titleCase, transformIngredientList } from './utils';
+import * as summaryAction from "@/modules/summary/actions";
 
 const FoodPreferences = () => {
   const { t } = useTranslation('', { useSuspense: false });
-  const [allIngredients, setAllIngredients] = useState<any[]>([]);
   const [preferedIngredients, setPreferedIngredients] = useState<any[]>([]);
   const [unwantedIngredients, setUnwantedIngredients] = useState<any[]>([]);
   const [allergens, setAllergens] = useState<any[]>([]);
@@ -16,28 +17,15 @@ const FoodPreferences = () => {
   const { currentUser } = useAuth();
 
   useEffect(() => {
-    getAllIngredients();
     getFoodPreference();
   }, []);
 
-  const getAllIngredients =async () => {
-    const res = await axios.post(
-      `${BACKEND_BASE_URL}/sd/ingredient/ingredientList`,
-      {
-        pageSize: 50
-      },
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Authorization: currentUser?.uid,
-        },
-      }
-    )
-    const data = res.data?.data?.list;
-    setAllIngredients(transformIngredientList(data))
-    return data;
-  }
+  const { data: allIngredients, isLoading: isLoadingIngredients } = useQuery({
+    queryFn: async () =>
+    summaryAction.getAllIngredients((await currentUser?.getIdToken()) || ""),
+    queryKey: [currentUser?.uid],
+    enabled: !!currentUser,
+  });
 
   const getFoodPreference = async () => {
     const response = await axios.post(
@@ -57,6 +45,8 @@ const FoodPreferences = () => {
     setAllergens(transformIngredientList(data?.allergens));
     return data;
   };
+
+  const newAllIngre = transformIngredientList(allIngredients?.data);
   
   const addFoodPreference = async (
     body: any
@@ -111,7 +101,7 @@ const FoodPreferences = () => {
           break;
       }
     } else {
-      const ingre = allIngredients?.find((ingredient: any) => ingredient?.value === item);
+      const ingre = newAllIngre?.find((ingredient: any) => ingredient?.value === item);
       return ingre?.id
     } 
   }
@@ -138,7 +128,7 @@ const FoodPreferences = () => {
 
   }
 
-  if (allIngredients.length == 0) return <div className="page-spinner"><Spin /></div>;
+  if (newAllIngre?.length == 0) return <div className="page-spinner"><Spin /></div>;
 
   return (
     <div className="food-pref-setting">
@@ -158,7 +148,7 @@ const FoodPreferences = () => {
             style={{ width: '100%' }}
             placeholder="Please select"
             defaultValue={preferedIngredients}
-            options={allIngredients}
+            options={newAllIngre}
             onDeselect={(e: any)=> handleChange(e, 1, true)}
             onSelect={(e: any)=> handleChange(e, 1, false)}
           />
@@ -172,7 +162,7 @@ const FoodPreferences = () => {
             style={{ width: '100%' }}
             placeholder="Please select"
             defaultValue={unwantedIngredients}
-            options={allIngredients}
+            options={newAllIngre}
             onDeselect={(e: any)=> handleChange(e, 0, true)}
             onSelect={(e: any)=> handleChange(e, 0, false)}
           />
@@ -188,7 +178,7 @@ const FoodPreferences = () => {
             defaultValue={allergens}
             onDeselect={(e: any)=> handleChange(e, -1, true)}
             onSelect={(e: any)=> handleChange(e, -1, false)}
-            options={allIngredients}
+            options={newAllIngre}
           />
         </Form.Item>
       </Form>

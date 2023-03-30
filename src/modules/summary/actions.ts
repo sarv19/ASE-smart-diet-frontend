@@ -1,6 +1,5 @@
-export async function get(idToken: string) {
-
-  const response = await fetch("/api/summary", {
+export async function get(dateBefore: any, idToken: string) {
+  const response = await fetch(`/api/summary?dateBefore=${dateBefore?.day}`, {
     method: "GET",
     headers: {
       Authorization: idToken,
@@ -24,4 +23,16 @@ export async function get(idToken: string) {
   return { ingredients, breakfast, lunch, dinner, userTarget };
 }
 
+export async function getAllIngredients(idToken: string) {
+  const response = await fetch("/api/summary", {
+    method: "POST",
+    headers: {
+      Authorization: idToken,
+    },
+  });
+  const data = await response.json();
+  return { data };
+}
+
 get.key = "/modules/summary/actions/get";
+getAllIngredients.key = "/modules/summary/actions/getAllIngredients";

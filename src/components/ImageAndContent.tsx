@@ -108,7 +108,7 @@ const ImageAndContent = (props: ImageAndContentProps) => {
               </div>
             </div>
           ) : (
-            <div className="no-data">No data yet</div>
+            <div className="no-data">{t("No data yet")}</div>
           )}
         </div>
       </div>
