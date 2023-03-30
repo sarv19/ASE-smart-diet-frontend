@@ -87,7 +87,6 @@ const Summary = () => {
           <DatePicker
             defaultValue={dayjs()}
             onChange={handleChangeDate}
-            value={dayjs(currentDate)}
           />
         </div>
         <Button onClick={() => downloadPdf(summaryData, allIngredients?.data, currentDate, t)}>{t("Download Report")}</Button>
