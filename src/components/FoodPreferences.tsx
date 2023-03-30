@@ -1,6 +1,5 @@
 import { BACKEND_BASE_URL } from '@/constants';
 import { useAuth } from '@/modules/auth';
-import { addFoodPreferenceRequest } from '@/modules/settings/food/actions';
 import { Form, Select, Spin } from 'antd';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -67,7 +66,7 @@ const FoodPreferences = () => {
   };
   
   const addFoodPreference = async (
-    body: addFoodPreferenceRequest
+    body: any
   ) => {
     const response = await fetch(`${BACKEND_BASE_URL}/sd/settings/addFoodPerformance`, {
       method: 'POST',
@@ -84,7 +83,7 @@ const FoodPreferences = () => {
   };
   
   const deleteFoodPreference = async (
-    body: addFoodPreferenceRequest
+    body: any
   ) => {
     const response = await fetch(
       `${BACKEND_BASE_URL}/sd/settings/deleteFoodPerformance`,
@@ -134,7 +133,7 @@ const FoodPreferences = () => {
           getFoodPreference()
         })
     } else {
-      const data: addFoodPreferenceRequest = {
+      const data: any = {
         ingredientId: getId(item, rank, remove),
         recommendLevel: rank
       }
