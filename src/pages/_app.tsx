@@ -143,7 +143,7 @@ export default function App({ Component, pageProps }: AppProps) {
                             <Switch
                               checkedChildren="EN"
                               unCheckedChildren="FR"
-                              checked={i18n.language === "en-CA"}
+                              checked={i18n.language === "en-CA" || i18n.language === "en-US"}
                               onChange={handleChangeLanguage}
                             />
                           )}
