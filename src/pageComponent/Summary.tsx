@@ -89,7 +89,12 @@ const Summary = () => {
             onChange={handleChangeDate}
           />
         </div>
-        <Button onClick={() => downloadPdf(summaryData, allIngredients?.data, currentDate, t)}>{t("Download Report")}</Button>
+        <Button
+          onClick={() => downloadPdf(summaryData, allIngredients?.data, currentDate, t)}
+          disabled={isLoadingSummary || isLoading || isLoadingIngredients}
+        >
+            {t("Download Report")}
+        </Button>
       </div>
       <div className="progress-bar">
         <Progress
