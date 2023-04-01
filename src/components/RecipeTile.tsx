@@ -36,7 +36,7 @@ const RecipeTile = ({ recipe }: any) => {
         </a>
         <div className="recipe-tile-nutrition">
           <div className="recipe-tile-nutrition-calories">
-            {recipe.calories} {t("calories")}
+            {recipe.calories} {t("calories")}/ pax
           </div>
           <div className="recipe-tile-nutrition-allergens">
             {recipe.allergens?.map((item: string) => (
