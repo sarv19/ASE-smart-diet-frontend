@@ -1,38 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Smart Diet Front-End
+
+Welcome to Smart Diet, an application designed to assist people with disabilities in maintaining a strict and personalized diet. With a user-friendly interface, dynamic meal suggestions, progress tracking, and multi-language support, Smart Diet is your go-to solution for achieving your dietary goals.
+
+## Features
+
+### 1. Personalized Meal Suggestions
+- Users input their diet preferences at the beginning.
+- Dynamic meal suggestions ensure a variety of ingredients for each meal.
+- Total combined calories and nutrition are tailored to meet daily diet goals.
+
+### 2. Reporting Feature
+- Track your daily progress with the built-in reporting feature.
+- Visualize your journey towards your dietary objectives.
+
+### 3. Recipe Suggestions
+- Enjoy diverse and delicious meals with recipe suggestions for each meal.
+- Keep your meals interesting and flavorful.
+
+### 4. User Accounts for Privacy
+- Each user gets a personalized account to ensure data privacy.
+- Secure login/logout functionality using Firebase.
+
+### 5. Multi-Language Support
+- Smart Diet is available in both English and French.
+- Recipes are also presented in the user's chosen language.
+
+## Tech Stack
+
+- **NextJs with TypeScript:** A powerful combination for building scalable and maintainable web applications.
+- **i18n:** Internationalization support for a seamless experience in multiple languages.
+- **Sass:** Enhance your styling capabilities with the power of Sass.
+- **Algolia Search for Recipe:** Leverage Algolia's search capabilities to find the perfect recipes.
+- **Firebase:** Secure user authentication and account management.
+- **Ant Design (antd):** A design system with a set of high-quality React components for a polished UI.
 
 ## Getting Started
 
-First, run the development server:
+To get started with Smart Diet locally, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Clone the repository.
+   ```bash
+    git clone https://github.com/your-username/ASE-smart-diet-frontend.git
+   ```
+2. Install dependencies.
+   ```bash
+    cd ASE-smart-diet-frontend
+    npm install
+   ```
+3. Run the application as a development server.
+   ```bash
+    npm run dev
+    # or
+    yarn dev
+    # or
+    pnpm dev
+   ```
+4. Access the application at http://localhost:3000 in your web browser.
